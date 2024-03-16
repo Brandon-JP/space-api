@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 06:09 PM
+-- Generation Time: Mar 16, 2024 at 06:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -185,14 +185,24 @@ CREATE TABLE `rover` (
   `name` varchar(32) NOT NULL,
   `country` varchar(64) NOT NULL,
   `agency` varchar(16) DEFAULT NULL,
-  `landing_date` int(11) NOT NULL,
+  `landing_date` date NOT NULL,
   `landing_longitude` varchar(16) NOT NULL,
   `landing_latitude` varchar(16) NOT NULL,
-  `operational_days` int(11) NOT NULL,
-  `distance_travelled` float NOT NULL,
-  `moon_id` int(11) NOT NULL,
-  `planet_id` int(11) NOT NULL
+  `operational_days` int(11) DEFAULT NULL,
+  `distance_travelled` float DEFAULT NULL,
+  `moon_id` int(11) DEFAULT NULL,
+  `planet_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `rover`
+--
+
+INSERT INTO `rover` (`rover_id`, `name`, `country`, `agency`, `landing_date`, `landing_longitude`, `landing_latitude`, `operational_days`, `distance_travelled`, `moon_id`, `planet_id`) VALUES
+(2, 'Lunokhod 1', 'USSR', NULL, '1970-11-17', '-35.0017', '38.2378', 322, 10.5, 1, NULL),
+(3, 'Lunokhod 2', 'USSR', NULL, '1971-01-15', '30.45', '25.85', 236, 39, 1, NULL),
+(4, 'PrOP-M', 'USSR', NULL, '1971-11-27', '47', '-45', NULL, NULL, NULL, 4),
+(5, 'Sojourner', 'United States', 'NASA', '1997-07-04', '-35.0017', '38.2378', 85, 0.1, NULL, 4);
 
 --
 -- Indexes for dumped tables
@@ -295,7 +305,7 @@ ALTER TABLE `rocket`
 -- AUTO_INCREMENT for table `rover`
 --
 ALTER TABLE `rover`
-  MODIFY `rover_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rover_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
