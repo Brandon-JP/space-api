@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 11:05 PM
+-- Generation Time: Mar 16, 2024 at 03:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -22,6 +22,41 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `space` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `space`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `astronaut`
+--
+
+DROP TABLE IF EXISTS `astronaut`;
+CREATE TABLE `astronaut` (
+  `astronaut_id` int(11) NOT NULL,
+  `first_name` varchar(32) NOT NULL,
+  `last_name` varchar(32) NOT NULL,
+  `gender` varchar(8) NOT NULL,
+  `country` varchar(32) NOT NULL,
+  `flight_count` int(11) NOT NULL,
+  `total_flight_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `meteorite`
+--
+
+DROP TABLE IF EXISTS `meteorite`;
+CREATE TABLE `meteorite` (
+  `meteorite_id` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `recclass` varchar(16) NOT NULL,
+  `mass` int(11) NOT NULL,
+  `fall` enum('Fell','Found') NOT NULL,
+  `year` year(4) DEFAULT NULL,
+  `reclat` float NOT NULL,
+  `reclong` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -71,11 +106,11 @@ CREATE TABLE `moon` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `planets`
+-- Table structure for table `planet`
 --
 
-DROP TABLE IF EXISTS `planets`;
-CREATE TABLE `planets` (
+DROP TABLE IF EXISTS `planet`;
+CREATE TABLE `planet` (
   `planet_id` int(11) NOT NULL,
   `name` varchar(16) NOT NULL,
   `mass` float NOT NULL,
@@ -134,6 +169,18 @@ CREATE TABLE `rover` (
 --
 
 --
+-- Indexes for table `astronaut`
+--
+ALTER TABLE `astronaut`
+  ADD PRIMARY KEY (`astronaut_id`);
+
+--
+-- Indexes for table `meteorite`
+--
+ALTER TABLE `meteorite`
+  ADD PRIMARY KEY (`meteorite_id`);
+
+--
 -- Indexes for table `mission`
 --
 ALTER TABLE `mission`
@@ -155,9 +202,9 @@ ALTER TABLE `moon`
   ADD KEY `FK_Moon_Planet_id` (`planet_id`);
 
 --
--- Indexes for table `planets`
+-- Indexes for table `planet`
 --
-ALTER TABLE `planets`
+ALTER TABLE `planet`
   ADD PRIMARY KEY (`planet_id`);
 
 --
@@ -179,6 +226,18 @@ ALTER TABLE `rover`
 --
 
 --
+-- AUTO_INCREMENT for table `astronaut`
+--
+ALTER TABLE `astronaut`
+  MODIFY `astronaut_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `meteorite`
+--
+ALTER TABLE `meteorite`
+  MODIFY `meteorite_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
@@ -191,9 +250,9 @@ ALTER TABLE `moon`
   MODIFY `moon_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `planets`
+-- AUTO_INCREMENT for table `planet`
 --
-ALTER TABLE `planets`
+ALTER TABLE `planet`
   MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -229,14 +288,14 @@ ALTER TABLE `mission_rover`
 -- Constraints for table `moon`
 --
 ALTER TABLE `moon`
-  ADD CONSTRAINT `FK_Moon_Planet_id` FOREIGN KEY (`planet_id`) REFERENCES `planets` (`planet_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Moon_Planet_id` FOREIGN KEY (`planet_id`) REFERENCES `planet` (`planet_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rover`
 --
 ALTER TABLE `rover`
   ADD CONSTRAINT `FK_Rover_Moon_Id` FOREIGN KEY (`moon_id`) REFERENCES `moon` (`moon_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Rover_Planet_Id` FOREIGN KEY (`planet_id`) REFERENCES `planets` (`planet_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Rover_Planet_Id` FOREIGN KEY (`planet_id`) REFERENCES `planet` (`planet_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
