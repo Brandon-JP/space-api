@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 03:26 PM
+-- Generation Time: Mar 16, 2024 at 06:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -103,6 +103,22 @@ CREATE TABLE `moon` (
   `albedo` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `moon`
+--
+
+INSERT INTO `moon` (`moon_id`, `name`, `planet_id`, `radius`, `density`, `magnitude`, `albedo`) VALUES
+(1, 'Moon', 3, 1737.5, 3.344, -12.74, 0.12),
+(2, 'Phobos', 4, 11.1, 1.872, 11.4, 0.071),
+(3, 'Titan', 6, 2574.73, 1.882, 8.4, 0.2),
+(4, 'Io', 5, 1821.6, 3.528, 5.02, 0.63),
+(5, 'Ariel', 7, 578.9, 1.592, 13.7, 0.39),
+(6, 'Triton', 8, 1353.4, 2.059, 13.54, 0.719),
+(7, 'Deimos', 4, 6.2, 1.471, 12.45, 0.068),
+(8, 'Europa', 5, 1560.8, 3.013, 5.29, 0.67),
+(9, 'Mimas', 6, 198.2, 1.15, 12.8, 0.962),
+(10, 'Umbriel', 7, 584.7, 1.459, 14.47, 0.21);
+
 -- --------------------------------------------------------
 
 --
@@ -122,6 +138,20 @@ CREATE TABLE `planet` (
   `mission_count` int(11) NOT NULL,
   `moon_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `planet`
+--
+
+INSERT INTO `planet` (`planet_id`, `name`, `mass`, `diameter`, `density`, `gravity`, `escape_velocity`, `rotation_period`, `mission_count`, `moon_count`) VALUES
+(1, 'Mercury', 0.33, 4879, 5427, 3.7, 4.3, 1407.6, 0, 0),
+(2, 'Venus', 4.87, 12104, 5243, 8.9, 10.4, -5832.5, 0, 0),
+(3, 'Earth', 5.97, 12756, 5514, 9.8, 11.2, 23.9, 0, 0),
+(4, 'Mars', 0.642, 6792, 3933, 3.7, 5, 24.6, 0, 0),
+(5, 'Jupiter', 1898, 142984, 1326, 23.1, 59.5, 9.9, 0, 0),
+(6, 'Saturn', 568, 120536, 687, 9, 35.5, 10.7, 0, 0),
+(7, 'Uranus', 86.8, 51118, 1271, 8.7, 21.3, -17.2, 0, 0),
+(8, 'Neptune', 102, 49528, 1638, 11, 23.5, 16.1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -247,13 +277,13 @@ ALTER TABLE `mission`
 -- AUTO_INCREMENT for table `moon`
 --
 ALTER TABLE `moon`
-  MODIFY `moon_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `moon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `planet`
 --
 ALTER TABLE `planet`
-  MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `planet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rocket`
