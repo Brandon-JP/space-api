@@ -70,9 +70,25 @@ CREATE TABLE `meteorite` (
   `mass` int(11) NOT NULL,
   `fall` enum('Fell','Found') NOT NULL,
   `year` year(4) DEFAULT NULL,
-  `reclat` float NOT NULL,
-  `reclong` float NOT NULL
+  `reclat` float DEFAULT NULL,
+  `reclong` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `meteorite`
+--
+
+INSERT INTO `meteorite` (`meteorite_id`, `name`, `recclass`, `mass`, `fall`, `year`, `reclat`, `reclong`) VALUES
+(1, 'Aachen', 'L5', 21, 'Fell', '0000', 50.775, 6.08333),
+(2, 'Bali', 'CV3', 1000, 'Fell', '1907', 5.38333, 16.3833),
+(3, 'Blanket', 'L6', 68, 'Fell', '1909', 31.8333, 98.8333),
+(4, 'Castine', 'L6', 94, 'Fell', '0000', 44.3833, -68.75),
+(5, 'Kirbyville', 'Eucrite-mmict', 98, 'Fell', '1906', 30.75, -95.95),
+(6, 'Lodran', 'Lodranite', 1000, 'Fell', '0000', 29.5333, 71.8),
+(7, 'Mariaville', 'Iron', 340, 'Fell', '0000', 42.7167, -99.3833),
+(8, 'Dominion Range 03239', 'L6', 70, 'Found', '2002', NULL, NULL),
+(9, 'Cumulus Hills 04075', 'Pallasite', 10, 'Found', '2003', NULL, NULL),
+(10, 'Abajo', 'H5', 331, 'Found', '1982', 26.8, -105.417);
 
 -- --------------------------------------------------------
 
