@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2024 at 04:00 PM
+-- Generation Time: Mar 18, 2024 at 12:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -118,7 +118,8 @@ INSERT INTO `mission` (`mission_id`, `name`, `astronaut_count`, `status`) VALUES
 (7, 'Mars Pathfinder', 0, 'Success'),
 (8, 'Mars Exploration Rover', 0, 'Success'),
 (9, 'Mars Science Laboratory', 0, 'Success'),
-(10, 'Mars 2020', 0, 'Success');
+(10, 'Mars 2020', 0, 'Success'),
+(11, 'Apollo 15', 3, 'Success');
 
 -- --------------------------------------------------------
 
@@ -137,7 +138,7 @@ CREATE TABLE `mission_rover` (
   `landing_time` time DEFAULT NULL,
   `landing_latitude` float NOT NULL,
   `landing_longitude` float NOT NULL,
-  `operational_days` int(11) DEFAULT NULL,
+  `operational_days` float DEFAULT NULL,
   `distance_travelled` float DEFAULT NULL,
   `rocket_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -156,6 +157,7 @@ INSERT INTO `mission_rover` (`mission_id`, `rover_id`, `launch_date`, `launch_ti
 (8, 6, '2003-07-07', '03:18:00', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-25', '05:05:00', -1.95, 354.47, 5250, 45.16, 4),
 (9, 7, '2011-11-26', '15:02:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2012-08-06', '05:17:00', -4.5895, 137.442, 4238, 31.06, 5),
 (10, 8, '2020-07-30', '11:50:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2021-02-18', '20:55:00', 18.4447, 77.4508, 1122, 23.73, 5),
+(11, 9, '1971-07-26', '13:34:00', 'LC-39A, Kennedy Space Center, Florida, USA', '1971-07-30', '22:16:29', 26.1322, 3.6339, 0.1264, 27.76, 6),
 (3, 10, '2013-12-01', '17:30:00', 'LC-2, Xichang Satellite Launch Center, China', '2013-12-14', '13:11:00', 44.1214, -19.5116, 973, 0.1148, 2),
 (4, 11, '2018-12-07', '18:23:00', 'LC-2, Xichang Satellite Launch Center, China', '2019-01-03', '02:26:00', -45.444, 177.599, 1899, 1.455, 2);
 
@@ -362,13 +364,13 @@ ALTER TABLE `astronaut`
 -- AUTO_INCREMENT for table `meteorite`
 --
 ALTER TABLE `meteorite`
-  MODIFY `meteorite_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `meteorite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
-  MODIFY `mission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `mission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `moon`
