@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2024 at 03:34 PM
+-- Generation Time: Mar 17, 2024 at 03:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,23 +40,6 @@ CREATE TABLE `astronaut` (
   `total_flight_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
---
--- Dumping data for table `astronaut`
---
-
-INSERT INTO `astronaut` (`astronaut_id`, `first_name`, `last_name`, `gender`, `country`, `flight_count`, `total_flight_time`) VALUES
-(1, 'Abdul Ahad', 'Mohmand', 'Male', 'Afghanistan', 1, '08:20:26'),
-(2, 'Akihiko', 'Hoshide', 'Male', 'Japan', 2, '140:17:26'),
-(3, 'Barbara', 'Morgan', 'Female', 'United States', 1, '12:17:56'),
-(4, 'Barry', 'Wilmore', 'Male', 'United States', 2, '178:00:58'),
-(5, 'Carlos I.', 'Noriega', 'Male', 'Peru', 2, '20:00:17'),
-(6, 'Chiaki', 'Mukai', 'Female', 'Japan', 2, '23:15:19'),
-(7, 'David', 'Saint-Jacques', 'Male', 'Canada', 1, '203:15:16'),
-(8, 'Dirk', 'Frimout', 'Male', 'Belgium', 1, '08:22:09'),
-(9, 'Eileen', 'Collins', 'Female', 'United States', 4, '36:07:10'),
-(10, 'Ernst', 'Messerschmid', 'Male', 'Germany', 1, '07:00:44');
-      
 -- --------------------------------------------------------
 
 --
@@ -102,7 +85,8 @@ INSERT INTO `mission` (`mission_id`, `name`, `astronaut_count`, `status`) VALUES
 (6, 'Mars-3', 0, 'Success'),
 (7, 'Mars Pathfinder', 0, 'Success'),
 (8, 'Mars Exploration Rover', 0, 'Success'),
-(9, 'Mars Science Laboratory', 0, 'Success');
+(9, 'Mars Science Laboratory', 0, 'Success'),
+(10, 'Mars 2020', 0, 'Success');
 
 -- --------------------------------------------------------
 
@@ -138,6 +122,8 @@ INSERT INTO `mission_rover` (`mission_id`, `rover_id`, `launch_date`, `launch_ti
 (7, 4, '1996-12-04', '06:58:07', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '1997-07-04', '16:56:55', 19.33, -33.55, 85, 0.1, 3),
 (8, 5, '2003-06-10', '17:58:47', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-04', '04:35:00', -14.57, 175.47, 2269, 7.73, 3),
 (8, 6, '2003-07-07', '03:18:00', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-25', '05:05:00', -1.95, 354.47, 5250, 45.16, 4),
+(9, 7, '2011-11-26', '15:02:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2012-08-06', '05:17:00', -4.5895, 137.442, 4238, 31.06, 5),
+(10, 8, '2020-07-30', '11:50:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2021-02-18', '20:55:00', 18.4447, 77.4508, 1122, 23.73, 5),
 (3, 10, '2013-12-01', '17:30:00', 'LC-2, Xichang Satellite Launch Center, China', '2013-12-14', '13:11:00', 44.1214, -19.5116, 973, 0.1148, 2),
 (4, 11, '2018-12-07', '18:23:00', 'LC-2, Xichang Satellite Launch Center, China', '2019-01-03', '02:26:00', -45.444, 177.599, 1899, 1.455, 2);
 
@@ -350,7 +336,7 @@ ALTER TABLE `meteorite`
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
-  MODIFY `mission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `mission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `moon`
