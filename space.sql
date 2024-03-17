@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2024 at 06:36 PM
+-- Generation Time: Mar 16, 2024 at 10:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -67,12 +67,23 @@ CREATE TABLE `meteorite` (
 DROP TABLE IF EXISTS `mission`;
 CREATE TABLE `mission` (
   `mission_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
   `astronaut_count` int(11) NOT NULL,
   `launch_location` varchar(128) NOT NULL,
   `launch_date` datetime NOT NULL,
   `status` enum('Success','Failure','Partial Failure','Prelaunch Failure') NOT NULL,
   `rocket_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mission`
+--
+
+INSERT INTO `mission` (`mission_id`, `name`, `astronaut_count`, `launch_location`, `launch_date`, `status`, `rocket_id`) VALUES
+(1, 'Luna 17', 0, 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1970-11-10 09:44:01', 'Success', 1),
+(2, 'Luna 21', 0, 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1973-01-08 01:55:38', 'Success', 1),
+(3, 'Chang\'e 3', 0, 'LC-2, Xichang Satellite Launch Center, China', '2013-12-01 12:30:00', 'Success', 2),
+(4, 'Chang\'e 4', 0, 'LC-2, Xichang Satellite Launch Center, China\r\n', '2018-12-07 13:23:00', 'Success', 2);
 
 -- --------------------------------------------------------
 
@@ -83,7 +94,12 @@ CREATE TABLE `mission` (
 DROP TABLE IF EXISTS `mission_rover`;
 CREATE TABLE `mission_rover` (
   `mission_id` int(11) NOT NULL,
-  `rover_id` int(11) NOT NULL
+  `rover_id` int(11) NOT NULL,
+  `landing_date` date NOT NULL,
+  `landing_latitude` float NOT NULL,
+  `landing_longitude` float NOT NULL,
+  `operational_days` int(11) DEFAULT NULL,
+  `distance_travelled` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -170,8 +186,20 @@ CREATE TABLE `rocket` (
   `stages` int(11) NOT NULL,
   `side_strap_count` int(11) NOT NULL,
   `rocket_height` float DEFAULT NULL,
-  `cost` float NOT NULL
+  `cost` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `rocket`
+--
+
+INSERT INTO `rocket` (`rocket_id`, `name`, `company`, `status`, `liftoff_thrust`, `payload_to_leo`, `stages`, `side_strap_count`, `rocket_height`, `cost`) VALUES
+(1, 'Proton-K/Block D', 'Khrunichev', 'Retired', 8681, 18.9, 3, 0, 58.46, NULL),
+(2, 'Long March 3B/E', 'CASC', 'Active', 5922, 11.5, 3, 4, 56.3, 29.15),
+(3, 'Delta II 7925', 'ULA', 'Retired', 3511, 0, 3, 9, 38.1, NULL),
+(4, 'Delta II 7925H', 'ULA', 'Retired', 4398, 0, 3, 9, 38.1, NULL),
+(5, 'Atlas V 541', 'ULA', 'Active', 10581, 17.41, 2, 4, 62.2, 145),
+(6, 'Saturn V', 'NASA', 'Retired', 35100, 140, 3, 0, 110.6, 1160);
 
 -- --------------------------------------------------------
 
@@ -185,11 +213,6 @@ CREATE TABLE `rover` (
   `name` varchar(32) NOT NULL,
   `country` varchar(64) NOT NULL,
   `agency` varchar(16) DEFAULT NULL,
-  `landing_date` date NOT NULL,
-  `landing_longitude` varchar(16) NOT NULL,
-  `landing_latitude` varchar(16) NOT NULL,
-  `operational_days` int(11) DEFAULT NULL,
-  `distance_travelled` float DEFAULT NULL,
   `moon_id` int(11) DEFAULT NULL,
   `planet_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -198,11 +221,18 @@ CREATE TABLE `rover` (
 -- Dumping data for table `rover`
 --
 
-INSERT INTO `rover` (`rover_id`, `name`, `country`, `agency`, `landing_date`, `landing_longitude`, `landing_latitude`, `operational_days`, `distance_travelled`, `moon_id`, `planet_id`) VALUES
-(2, 'Lunokhod 1', 'USSR', NULL, '1970-11-17', '-35.0017', '38.2378', 322, 10.5, 1, NULL),
-(3, 'Lunokhod 2', 'USSR', NULL, '1971-01-15', '30.45', '25.85', 236, 39, 1, NULL),
-(4, 'PrOP-M', 'USSR', NULL, '1971-11-27', '47', '-45', NULL, NULL, NULL, 4),
-(5, 'Sojourner', 'United States', 'NASA', '1997-07-04', '-35.0017', '38.2378', 85, 0.1, NULL, 4);
+INSERT INTO `rover` (`rover_id`, `name`, `country`, `agency`, `moon_id`, `planet_id`) VALUES
+(1, 'Lunokhod 1', 'USSR', NULL, 1, NULL),
+(2, 'Lunokhod 2', 'USSR', NULL, 1, NULL),
+(3, 'PrOP-M', 'USSR', NULL, NULL, 4),
+(4, 'Sojourner', 'United States', 'NASA', NULL, 4),
+(5, 'Spirit', 'United States', 'NASA', NULL, 4),
+(6, 'Opportunity', 'United States', 'NASA', NULL, 4),
+(7, 'Curiosity', 'United States', 'NASA', NULL, 4),
+(8, 'Perseverance', 'United States', 'NASA', NULL, 4),
+(9, 'Lunar Roving Vehicle', 'United States', 'NASA', 1, NULL),
+(10, 'Yutu', 'China', 'CNSA', 1, NULL),
+(11, 'Yutu-2', 'China', 'CNSA', 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -281,7 +311,7 @@ ALTER TABLE `meteorite`
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
-  MODIFY `mission_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `moon`
@@ -299,13 +329,13 @@ ALTER TABLE `planet`
 -- AUTO_INCREMENT for table `rocket`
 --
 ALTER TABLE `rocket`
-  MODIFY `rocket_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rocket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `rover`
 --
 ALTER TABLE `rover`
-  MODIFY `rover_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `rover_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
