@@ -40,6 +40,23 @@ CREATE TABLE `astronaut` (
   `total_flight_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+--
+-- Dumping data for table `astronaut`
+--
+
+INSERT INTO `astronaut` (`astronaut_id`, `first_name`, `last_name`, `gender`, `country`, `flight_count`, `total_flight_time`) VALUES
+(1, 'Abdul Ahad', 'Mohmand', 'Male', 'Afghanistan', 1, '08:20:26'),
+(2, 'Akihiko', 'Hoshide', 'Male', 'Japan', 2, '140:17:26'),
+(3, 'Barbara', 'Morgan', 'Female', 'United States', 1, '12:17:56'),
+(4, 'Barry', 'Wilmore', 'Male', 'United States', 2, '178:00:58'),
+(5, 'Carlos I.', 'Noriega', 'Male', 'Peru', 2, '20:00:17'),
+(6, 'Chiaki', 'Mukai', 'Female', 'Japan', 2, '23:15:19'),
+(7, 'David', 'Saint-Jacques', 'Male', 'Canada', 1, '203:15:16'),
+(8, 'Dirk', 'Frimout', 'Male', 'Belgium', 1, '08:22:09'),
+(9, 'Eileen', 'Collins', 'Female', 'United States', 4, '36:07:10'),
+(10, 'Ernst', 'Messerschmid', 'Male', 'Germany', 1, '07:00:44');
+      
 -- --------------------------------------------------------
 
 --
