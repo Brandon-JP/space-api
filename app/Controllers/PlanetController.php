@@ -15,10 +15,19 @@ class PlanetController extends BaseController
     {
         $this->planet_model = new PlanetModel();
     }
-    public function handleGetPlanets(Request $request, Response $response, array $uri_args): Response
+    public function handleGetAllPlanets(Request $request, Response $response, array $uri_args): Response
     {
-        $planets = $this->planet_model->getPlanets();
+        $planets = $this->planet_model->getAllPlanets();
         $response = $this->makeResponse($response, $planets);
+        return $response;
+    }
+
+    public function handleGetPlanetById(Request $request, Response $response, array $uri_args)
+    {
+        $supplied_planet_id = $uri_args["planet_id"];
+        $planet = $this->planet_model->getPlanetById($supplied_planet_id);
+
+        $response = $this->makeResponse($response, $planet);
         return $response;
     }
 }

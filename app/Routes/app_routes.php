@@ -28,4 +28,6 @@ $app->get('/hello', function (Request $request, Response $response, $args) {
 });
 
 //* ROUTE: GET /planets
-$app->get("/planets", [PlanetController::class, "handleGetPlanets"]);
+$app->get("/planets", [PlanetController::class, "handleGetAllPlanets"]);
+//* ROUTE: GET /planets/{planet_id}
+$app->get("/planets/{planet_id}", [PlanetController::class,"handleGetPlanetById"]);
