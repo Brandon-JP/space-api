@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Vanier\Api\Controllers\AboutController;
+use Vanier\Api\Controllers\PlanetController;
 use Vanier\Api\Helpers\DateTimeHelper;
 
 // Import the app instance into this file's scope.
@@ -25,3 +26,6 @@ $app->get('/hello', function (Request $request, Response $response, $args) {
     $response->getBody()->write("Reporting! Hello there! The current time is: " . $now);
     return $response;
 });
+
+//* ROUTE: GET /planets
+$app->get("/planets", [PlanetController::class, "handleGetPlanets"]);
