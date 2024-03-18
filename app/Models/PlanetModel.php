@@ -16,6 +16,7 @@ class PlanetModel extends BaseModel
         $sql_query = "SELECT * FROM planet
             WHERE planet_id = :planet_id
         ";
+        $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
 
         $planet = (array)$this->fetchSingle($sql_query, $placeholder_values);

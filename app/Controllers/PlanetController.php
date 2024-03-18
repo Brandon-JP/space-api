@@ -22,7 +22,7 @@ class PlanetController extends BaseController
         return $response;
     }
 
-    public function handleGetPlanetById(Request $request, Response $response, array $uri_args)
+    public function handleGetPlanetById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_planet_id = $uri_args["planet_id"];
         $planet = $this->planet_model->getPlanetById($supplied_planet_id);

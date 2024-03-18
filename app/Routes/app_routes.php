@@ -32,5 +32,7 @@ $app->get('/hello', function (Request $request, Response $response, $args) {
 $app->get("/planets", [PlanetController::class, "handleGetAllPlanets"]);
 //* ROUTE: GET /planets/{planet_id}
 $app->get("/planets/{planet_id}", [PlanetController::class,"handleGetPlanetById"]);
-//* ROUTE: get /missions
+//* ROUTE: GET /missions
 $app->get("/missions", [MissionController::class, "handleGetAllMissions"]);
+//* ROUTE: GET /missions/{mission_id}
+$app->get("/missions/{mission_id}", [MissionController::class,"handleGetMissionById"]);
