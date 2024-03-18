@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Vanier\Api\Controllers\AboutController;
+use Vanier\Api\Controllers\MissionController;
 use Vanier\Api\Controllers\PlanetController;
 use Vanier\Api\Helpers\DateTimeHelper;
 
@@ -31,3 +32,5 @@ $app->get('/hello', function (Request $request, Response $response, $args) {
 $app->get("/planets", [PlanetController::class, "handleGetAllPlanets"]);
 //* ROUTE: GET /planets/{planet_id}
 $app->get("/planets/{planet_id}", [PlanetController::class,"handleGetPlanetById"]);
+//* ROUTE: get /missions
+$app->get("/missions", [MissionController::class, "handleGetAllMissions"]);
