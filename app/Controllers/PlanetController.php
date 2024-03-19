@@ -17,11 +17,13 @@ class PlanetController extends BaseController
     }
     public function handleGetAllPlanets(Request $request, Response $response, array $uri_args): Response
     {
-        $planets = $this->planet_model->getAllPlanets();
+        $planets_filters = $request->getQueryParams();
+        $planets = $this->planet_model->getAllPlanets($planets_filters);
         $response = $this->makeResponse($response, $planets);
         return $response;
     }
 
+    
     public function handleGetPlanetById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_planet_id = $uri_args["planet_id"];
