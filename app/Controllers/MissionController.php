@@ -15,10 +15,13 @@ class MissionController extends BaseController
     }
     public function handleGetAllMissions(Request $request, Response $response, array $uri_args) : Response
     {
-        $missions = $this->mission_model->getAllMissions();
+        $missions_filters = $request->getQueryParams();
+        $missions = $this->mission_model->getAllMissions($missions_filters);
         $response = $this->makeResponse($response, $missions);
         return $response;
     }
+
+    
 
     public function handleGetMissionById(Request $request, Response $response, array $uri_args) : Response 
     {
