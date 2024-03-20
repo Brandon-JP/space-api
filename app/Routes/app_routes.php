@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Vanier\Api\Controllers\AboutController;
 use Vanier\Api\Controllers\MissionController;
 use Vanier\Api\Controllers\PlanetController;
+use Vanier\Api\Controllers\RoversController;
 use Vanier\Api\Helpers\DateTimeHelper;
 
 // Import the app instance into this file's scope.
@@ -44,3 +45,7 @@ $app->get("/missions/{mission_id}", [MissionController::class,"handleGetMissionB
 //* ROUTE: GET /missions/{planet_id}/rockets
 $app->get("/missions/{mission_id}/rockets", [MissionController::class, "handleGetMissionRocketsById"]);
 $app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGetMissionRoversById"]);
+
+
+//* ROUTE: GET /rovers
+$app->get("/rovers", [RoversController::class, "handleGetAllRovers"]);

@@ -4,6 +4,9 @@ namespace Vanier\Api\Models;
 
 class PlanetModel extends BaseModel
 {
+    function __construct(){
+        parent::__construct();
+    }
     public function getAllPlanets(array $filters) : array
     {
         $sql_query = "SELECT * FROM planet WHERE 1";
