@@ -21,13 +21,31 @@ class MissionController extends BaseController
         return $response;
     }
 
-    
-
     public function handleGetMissionById(Request $request, Response $response, array $uri_args) : Response 
     {
         $supplied_mission_id = $uri_args["mission_id"];
         $mission = $this->mission_model->getMissionById($supplied_mission_id);
         $response = $this->makeResponse($response, $mission);
+        return $response;
+    }
+
+    public function handleGetMissionRocketsById(Request $request, Response $response, array $uri_args) : Response
+    {
+        $supplied_mission_id = $uri_args["mission_id"];
+        $mission_rockets = $this->mission_model->getMissionRocketsById($supplied_mission_id);
+
+        $response = $this->makeResponse($response, $mission_rockets);
+
+        return $response;
+    }
+
+    public function handleGetMissionRoversById(Request $request, Response $response, array $uri_args) : Response
+    {
+        $supplied_mission_id = $uri_args["mission_id"];
+        $mission_rovers = $this->mission_model->getMissionRoversById($supplied_mission_id);
+
+        $response = $this->makeResponse($response, $mission_rovers);
+
         return $response;
     }
 }

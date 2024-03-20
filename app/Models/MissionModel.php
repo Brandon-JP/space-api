@@ -72,4 +72,38 @@ class MissionModel extends BaseModel
         ($sql_query, $placeholder_values);
         return $mission;
     }
+
+    public function getMissionRocketsById(string $mission_id)
+    {
+        $data = [];
+        $mission = $this->getMissionById($mission_id);
+        $data["mission"] = $mission;
+
+        $sql_query = "SELECT r.* FROM rocket r, mission_rocket mr
+            WHERE mr.rocket_id = r.rocket_id
+            AND mr.mission_id = :mission_id
+        ";
+        $placeholder_values = [];
+        $placeholder_values["mission_id"] = $mission_id; 
+        $rockets = $this->fetchAll($sql_query, $placeholder_values);
+        $data["rockets"] = $rockets;
+        return $data;
+    }
+
+    public function getMissionRoversById(string $mission_id)
+    {
+        $data = [];
+        $mission = $this->getMissionById($mission_id);
+        $data["mission"] = $mission;
+
+        $sql_query = "SELECT r.*, mr.launch_date, mr.launch_time, mr.launch_location, mr.landing_date, mr.landing_time, mr.landing_latitude, mr.landing_longitude, mr.operational_days, mr.distance_travelled FROM rover r, mission_rover mr
+        WHERE mr.rover_id = r.rover_id
+        AND mr.mission_id = :mission_id
+        ";
+        $placeholder_values = [];
+        $placeholder_values["mission_id"] = $mission_id;
+        $rovers = $this->fetchAll($sql_query, $placeholder_values);
+        $data["rovers"] = $rovers;
+        return $data;
+    }
 }

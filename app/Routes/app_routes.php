@@ -36,7 +36,11 @@ $app->get("/planets/{planet_id}", [PlanetController::class,"handleGetPlanetById"
 $app->get("/planets/{planet_id}/moons", [PlanetController::class, "handleGetPlanetMoonsById"]);
 //* ROUTE: GET /planets/{planet_id}/rovers
 $app->get("/planets/{planet_id}/rovers", [PlanetController::class, "handleGetPlanetRoversById"]);
+
 //* ROUTE: GET /missions
 $app->get("/missions", [MissionController::class, "handleGetAllMissions"]);
 //* ROUTE: GET /missions/{mission_id}
 $app->get("/missions/{mission_id}", [MissionController::class,"handleGetMissionById"]);
+//* ROUTE: GET /missions/{planet_id}/rockets
+$app->get("/missions/{mission_id}/rockets", [MissionController::class, "handleGetMissionRocketsById"]);
+$app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGetMissionRoversById"]);
