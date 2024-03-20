@@ -6,11 +6,17 @@ class MissionModel extends BaseModel
 {
     public function getAllMissions(array $filters) : array
     {
+        
         $sql_query = "SELECT * from mission WHERE 1 ";
         $addMissionsFiltersResults = $this->addGetAllMissionsFilters($sql_query, $filters);
         $sql_query = $addMissionsFiltersResults["sql_query"];
         $placeholder_values = $addMissionsFiltersResults["placeholder_values"];
-        $missions = (array)$this->fetchAll($sql_query, $placeholder_values);
+
+        $this->setPaginationOptions(
+            $filters["page"] ?? 1,
+            $filters["page_size"] ?? 15
+        );
+        $missions = (array)$this->paginate($sql_query, $placeholder_values);
         return $missions;
     }
 
@@ -73,7 +79,7 @@ class MissionModel extends BaseModel
         return $mission;
     }
 
-    public function getMissionRocketsById(string $mission_id)
+    public function getMissionRocketsById(string $mission_id, array $filters)
     {
         $data = [];
         $mission = $this->getMissionById($mission_id);
@@ -84,13 +90,18 @@ class MissionModel extends BaseModel
             AND mr.mission_id = :mission_id
         ";
         $placeholder_values = [];
-        $placeholder_values["mission_id"] = $mission_id; 
-        $rockets = $this->fetchAll($sql_query, $placeholder_values);
+        $placeholder_values["mission_id"] = $mission_id;
+
+        $this->setPaginationOptions(
+            $filters["page"] ?? 1,
+            $filters["page_size"] ?? 15
+        );
+        $rockets = $this->paginate($sql_query, $placeholder_values);
         $data["rockets"] = $rockets;
         return $data;
     }
 
-    public function getMissionRoversById(string $mission_id)
+    public function getMissionRoversById(string $mission_id, array $filters)
     {
         $data = [];
         $mission = $this->getMissionById($mission_id);
@@ -102,7 +113,12 @@ class MissionModel extends BaseModel
         ";
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
-        $rovers = $this->fetchAll($sql_query, $placeholder_values);
+
+        $this->setPaginationOptions(
+            $filters["page"] ?? 1,
+            $filters["page_size"] ?? 15
+        );
+        $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
         return $data;
     }

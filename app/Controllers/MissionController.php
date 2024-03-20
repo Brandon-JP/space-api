@@ -32,7 +32,8 @@ class MissionController extends BaseController
     public function handleGetMissionRocketsById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_mission_id = $uri_args["mission_id"];
-        $mission_rockets = $this->mission_model->getMissionRocketsById($supplied_mission_id);
+        $mission_rockets_filters = $request->getQueryParams();
+        $mission_rockets = $this->mission_model->getMissionRocketsById($supplied_mission_id, $mission_rockets_filters);
 
         $response = $this->makeResponse($response, $mission_rockets);
 
@@ -42,7 +43,8 @@ class MissionController extends BaseController
     public function handleGetMissionRoversById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_mission_id = $uri_args["mission_id"];
-        $mission_rovers = $this->mission_model->getMissionRoversById($supplied_mission_id);
+        $mission_rovers_filters = $request->getQueryParams();
+        $mission_rovers = $this->mission_model->getMissionRoversById($supplied_mission_id, $mission_rovers_filters);
 
         $response = $this->makeResponse($response, $mission_rovers);
 

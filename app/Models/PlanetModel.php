@@ -15,7 +15,11 @@ class PlanetModel extends BaseModel
         $sql_query = $addPlanetsFiltersResults["sql_query"];
         $placeholder_values = $addPlanetsFiltersResults["placeholder_values"];
 
-        $planets = (array)$this->fetchAll($sql_query, $placeholder_values);
+        $this->setPaginationOptions(
+            $filters["page"] ?? 1,
+            $filters["page_size"] ?? 15
+        );
+        $planets = (array)$this->paginate($sql_query, $placeholder_values);
         return $planets;
     }
 
@@ -130,7 +134,7 @@ class PlanetModel extends BaseModel
         return $planet;
     }
 
-    public function getPlanetMoonsById(string $planet_id) : array
+    public function getPlanetMoonsById(string $planet_id, array $filters) : array
     {
         $data = [];
         $planet = $this->getPlanetById($planet_id);
@@ -142,13 +146,17 @@ class PlanetModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
 
-        $moons = $this->fetchAll($sql_query, $placeholder_values);
+        $this->setPaginationOptions(
+            $filters["page"] ?? 1,
+            $filters["page_size"] ?? 15
+        );
+        $moons = $this->paginate($sql_query, $placeholder_values);
         $data["moons"] = $moons;
 
         return $data;
     }
 
-    public function getPlanetRoversById(string $planet_id) : array 
+    public function getPlanetRoversById(string $planet_id, array $filters) : array 
     {
         $data = [];
         $planet = $this->getPlanetById($planet_id);
@@ -160,7 +168,11 @@ class PlanetModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
 
-        $rovers = $this->fetchAll($sql_query, $placeholder_values);
+        $this->setPaginationOptions(
+            $filters["page"] ?? 1,
+            $filters["page_size"] ?? 15
+        );
+        $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
 
         return $data;
