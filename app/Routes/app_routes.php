@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Vanier\Api\Controllers\AboutController;
+use Vanier\Api\Controllers\AstronautController;
 use Vanier\Api\Controllers\MissionController;
 use Vanier\Api\Controllers\PlanetController;
 use Vanier\Api\Helpers\DateTimeHelper;
@@ -43,4 +44,7 @@ $app->get("/missions", [MissionController::class, "handleGetAllMissions"]);
 $app->get("/missions/{mission_id}", [MissionController::class,"handleGetMissionById"]);
 //* ROUTE: GET /missions/{planet_id}/rockets
 $app->get("/missions/{mission_id}/rockets", [MissionController::class, "handleGetMissionRocketsById"]);
+//* ROUTE: GET /missions/{planet_id}/rovers
 $app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGetMissionRoversById"]);
+//* ROUTE: GET /astronauts
+$app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);
