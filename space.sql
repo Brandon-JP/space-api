@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2024 at 12:52 AM
+-- Generation Time: Mar 20, 2024 at 01:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -124,6 +124,36 @@ INSERT INTO `mission` (`mission_id`, `name`, `astronaut_count`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mission_rocket`
+--
+
+DROP TABLE IF EXISTS `mission_rocket`;
+CREATE TABLE `mission_rocket` (
+  `mission_id` int(11) NOT NULL,
+  `rocket_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mission_rocket`
+--
+
+INSERT INTO `mission_rocket` (`mission_id`, `rocket_id`) VALUES
+(1, 1),
+(2, 1),
+(5, 1),
+(6, 1),
+(7, 3),
+(8, 3),
+(8, 4),
+(9, 5),
+(10, 5),
+(11, 6),
+(3, 2),
+(4, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mission_rover`
 --
 
@@ -139,27 +169,26 @@ CREATE TABLE `mission_rover` (
   `landing_latitude` float NOT NULL,
   `landing_longitude` float NOT NULL,
   `operational_days` float DEFAULT NULL,
-  `distance_travelled` float DEFAULT NULL,
-  `rocket_id` int(11) NOT NULL
+  `distance_travelled` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `mission_rover`
 --
 
-INSERT INTO `mission_rover` (`mission_id`, `rover_id`, `launch_date`, `launch_time`, `launch_location`, `landing_date`, `landing_time`, `landing_latitude`, `landing_longitude`, `operational_days`, `distance_travelled`, `rocket_id`) VALUES
-(1, 1, '1970-11-10', '14:44:01', 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1970-11-17', '03:46:50', 38.2378, -35.0017, 322, 10.5, 1),
-(2, 2, '1973-01-08', '06:55:38', 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1973-01-15', '22:35:00', 25.85, 30.45, 236, 39, 1),
-(5, 3, '1971-05-19', '16:22:44', 'Site 81/24, Baikonur Cosmodrome, Kazakhstan', '1971-11-27', NULL, -45, 47, NULL, NULL, 1),
-(6, 3, '1971-05-28', '15:26:30', 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1971-12-02', '13:52:00', -45, 202, NULL, NULL, 1),
-(7, 4, '1996-12-04', '06:58:07', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '1997-07-04', '16:56:55', 19.33, -33.55, 85, 0.1, 3),
-(8, 5, '2003-06-10', '17:58:47', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-04', '04:35:00', -14.57, 175.47, 2269, 7.73, 3),
-(8, 6, '2003-07-07', '03:18:00', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-25', '05:05:00', -1.95, 354.47, 5250, 45.16, 4),
-(9, 7, '2011-11-26', '15:02:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2012-08-06', '05:17:00', -4.5895, 137.442, 4238, 31.06, 5),
-(10, 8, '2020-07-30', '11:50:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2021-02-18', '20:55:00', 18.4447, 77.4508, 1122, 23.73, 5),
-(11, 9, '1971-07-26', '13:34:00', 'LC-39A, Kennedy Space Center, Florida, USA', '1971-07-30', '22:16:29', 26.1322, 3.6339, 0.1264, 27.76, 6),
-(3, 10, '2013-12-01', '17:30:00', 'LC-2, Xichang Satellite Launch Center, China', '2013-12-14', '13:11:00', 44.1214, -19.5116, 973, 0.1148, 2),
-(4, 11, '2018-12-07', '18:23:00', 'LC-2, Xichang Satellite Launch Center, China', '2019-01-03', '02:26:00', -45.444, 177.599, 1899, 1.455, 2);
+INSERT INTO `mission_rover` (`mission_id`, `rover_id`, `launch_date`, `launch_time`, `launch_location`, `landing_date`, `landing_time`, `landing_latitude`, `landing_longitude`, `operational_days`, `distance_travelled`) VALUES
+(1, 1, '1970-11-10', '14:44:01', 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1970-11-17', '03:46:50', 38.2378, -35.0017, 322, 10.5),
+(2, 2, '1973-01-08', '06:55:38', 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1973-01-15', '22:35:00', 25.85, 30.45, 236, 39),
+(5, 3, '1971-05-19', '16:22:44', 'Site 81/24, Baikonur Cosmodrome, Kazakhstan', '1971-11-27', NULL, -45, 47, NULL, NULL),
+(6, 3, '1971-05-28', '15:26:30', 'Site 81/23, Baikonur Cosmodrome, Kazakhstan', '1971-12-02', '13:52:00', -45, 202, NULL, NULL),
+(7, 4, '1996-12-04', '06:58:07', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '1997-07-04', '16:56:55', 19.33, -33.55, 85, 0.1),
+(8, 5, '2003-06-10', '17:58:47', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-04', '04:35:00', -14.57, 175.47, 2269, 7.73),
+(8, 6, '2003-07-07', '03:18:00', 'SLC-17B, Cape Canaveral AFS, Florida, USA', '2004-01-25', '05:05:00', -1.95, 354.47, 5250, 45.16),
+(9, 7, '2011-11-26', '15:02:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2012-08-06', '05:17:00', -4.5895, 137.442, 4238, 31.06),
+(10, 8, '2020-07-30', '11:50:00', 'SLC-41, Cape Canaveral AFS, Florida, USA', '2021-02-18', '20:55:00', 18.4447, 77.4508, 1122, 23.73),
+(11, 9, '1971-07-26', '13:34:00', 'LC-39A, Kennedy Space Center, Florida, USA', '1971-07-30', '22:16:29', 26.1322, 3.6339, 0.1264, 27.76),
+(3, 10, '2013-12-01', '17:30:00', 'LC-2, Xichang Satellite Launch Center, China', '2013-12-14', '13:11:00', 44.1214, -19.5116, 973, 0.1148),
+(4, 11, '2018-12-07', '18:23:00', 'LC-2, Xichang Satellite Launch Center, China', '2019-01-03', '02:26:00', -45.444, 177.599, 1899, 1.455);
 
 -- --------------------------------------------------------
 
@@ -316,12 +345,18 @@ ALTER TABLE `mission`
   ADD PRIMARY KEY (`mission_id`);
 
 --
+-- Indexes for table `mission_rocket`
+--
+ALTER TABLE `mission_rocket`
+  ADD KEY `MISSION_ROCKET_MISSION_ID` (`mission_id`),
+  ADD KEY `MISSION_ROCKET_ROCKET_ID` (`rocket_id`);
+
+--
 -- Indexes for table `mission_rover`
 --
 ALTER TABLE `mission_rover`
   ADD PRIMARY KEY (`rover_id`,`mission_id`),
-  ADD KEY `MISSION_ROVER_MISSION_ID_FK` (`mission_id`),
-  ADD KEY `MISSION_ROVER_ROCKET_ID` (`rocket_id`);
+  ADD KEY `MISSION_ROVER_MISSION_ID_FK` (`mission_id`);
 
 --
 -- Indexes for table `moon`
@@ -401,11 +436,17 @@ ALTER TABLE `rover`
 --
 
 --
+-- Constraints for table `mission_rocket`
+--
+ALTER TABLE `mission_rocket`
+  ADD CONSTRAINT `MISSION_ROCKET_MISSION_ID` FOREIGN KEY (`mission_id`) REFERENCES `mission` (`mission_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `MISSION_ROCKET_ROCKET_ID` FOREIGN KEY (`rocket_id`) REFERENCES `rocket` (`rocket_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `mission_rover`
 --
 ALTER TABLE `mission_rover`
   ADD CONSTRAINT `MISSION_ROVER_MISSION_ID_FK` FOREIGN KEY (`mission_id`) REFERENCES `mission` (`mission_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `MISSION_ROVER_ROCKET_ID` FOREIGN KEY (`rocket_id`) REFERENCES `rocket` (`rocket_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `MISSION_ROVER_ROVER_ID_FK` FOREIGN KEY (`rover_id`) REFERENCES `rover` (`rover_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
