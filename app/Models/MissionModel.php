@@ -12,10 +12,7 @@ class MissionModel extends BaseModel
         $sql_query = $addMissionsFiltersResults["sql_query"];
         $placeholder_values = $addMissionsFiltersResults["placeholder_values"];
 
-        $this->setPaginationOptions(
-            $filters["page"] ?? 1,
-            $filters["page_size"] ?? 15
-        );
+        
         $missions = (array)$this->paginate($sql_query, $placeholder_values);
         return $missions;
     }
@@ -92,10 +89,7 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
-        $this->setPaginationOptions(
-            $filters["page"] ?? 1,
-            $filters["page_size"] ?? 15
-        );
+        
         $rockets = $this->paginate($sql_query, $placeholder_values);
         $data["rockets"] = $rockets;
         return $data;
@@ -114,10 +108,7 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
-        $this->setPaginationOptions(
-            $filters["page"] ?? 1,
-            $filters["page_size"] ?? 15
-        );
+
         $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
         return $data;

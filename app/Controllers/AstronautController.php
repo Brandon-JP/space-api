@@ -15,6 +15,11 @@ class AstronautController extends BaseController
     public function handleGetAllAstronauts(Request $request, Response $response, array $uri_args) : Response
     {
         $astronauts_filters = $request->getQueryParams();
+        $this->astronaut_model->setPaginationOptions(
+            $request,
+            $astronauts_filters["page"] ?? 1,
+            $astronauts_filters["page_size"] ?? 15
+        );
         $astronauts = $this->astronaut_model->getAllAstronauts($astronauts_filters);
         $response = $this->makeResponse($response, $astronauts);
         return $response;

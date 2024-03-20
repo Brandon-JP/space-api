@@ -6,6 +6,10 @@ namespace Vanier\Api\Models;
 
 use PDO;
 use Exception;
+use Vanier\Api\Exceptions\HttpInvalidInputException;
+use Psr\Http\Message\ServerRequestInterface as Request;
+
+use Vanier\Api\Helpers\InputsHelper;
 use Vanier\Api\Helpers\PaginationHelper;
 
 /**
@@ -263,9 +267,23 @@ abstract class BaseModel
         return $pagination_info;
     }
 
-    public function setPaginationOptions(int $current_page, int $records_per_page): void
+    public function setPaginationOptions(Request $request, mixed $current_page, mixed $records_per_page): void
     {
-        $this->current_page = $current_page;
-        $this->records_per_page = $records_per_page;
+        $current_page_valid = InputsHelper::isInt($current_page, 1);
+        $records_per_page_valid = InputsHelper::isInt($records_per_page, 1);
+        
+        if($current_page_valid && $records_per_page_valid)
+        {
+            $this->current_page = $current_page_valid;
+            $this->records_per_page = $records_per_page_valid;
+        }
+        else if(!$current_page_valid){
+            $invalid_records_per_page_filters_message = "The current page number can only be a number equal to 1 or greater.";
+            throw new HttpInvalidInputException($request, $invalid_records_per_page_filters_message);
+        }
+        else if(!$records_per_page_valid){
+            $invalid_records_per_page_filters_message = "The page size can only be a number equal to 1 or greater.";
+            throw new HttpInvalidInputException($request, $invalid_records_per_page_filters_message);
+        }
     }
 }

@@ -12,10 +12,7 @@ class AstronautModel extends BaseModel
         $sql_query = $addAstronautsFiltersResults["sql_query"];
         $placeholder_values = $addAstronautsFiltersResults["placeholder_values"];
 
-        $this->setPaginationOptions(
-            $filters["page"] ?? 1,
-            $filters["page_size"] ?? 15
-        );
+        
         $astronauts = (array)$this->paginate($sql_query, $placeholder_values);
 
         return $astronauts;
