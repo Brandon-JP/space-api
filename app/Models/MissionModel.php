@@ -96,7 +96,7 @@ class MissionModel extends BaseModel
         $mission = $this->getMissionById($mission_id);
         $data["mission"] = $mission;
 
-        $sql_query = "SELECT r.*, mr.launch_date, mr.launch_time, mr.launch_location, mr.landing_date, mr.landing_time, mr.landing_latitude, mr.landing_longitude, mr.operational_days, mr.distance_travelled FROM rover r, mission_rover mr
+        $sql_query = "SELECT r.* FROM rover r, mission_rover mr
         WHERE mr.rover_id = r.rover_id
         AND mr.mission_id = :mission_id
         ";

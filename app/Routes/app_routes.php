@@ -48,3 +48,5 @@ $app->get("/missions/{mission_id}/rockets", [MissionController::class, "handleGe
 $app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGetMissionRoversById"]);
 //* ROUTE: GET /astronauts
 $app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);
+//* ROUTE: GET /astronauts/{astronaut_id}
+$app->get("/astronauts/{astronaut_id}", [AstronautController::class, "handleGetAstronautById"]);

@@ -14,8 +14,18 @@ class AstronautController extends BaseController
     
     public function handleGetAllAstronauts(Request $request, Response $response, array $uri_args) : Response
     {
-        $astronauts = $this->astronaut_model->getAllAstronauts();
+        $astronauts_filters = $request->getQueryParams();
+        $astronauts = $this->astronaut_model->getAllAstronauts($astronauts_filters);
         $response = $this->makeResponse($response, $astronauts);
+        return $response;
+    }
+
+    public function handleGetAstronautById(Request $request, Response $response, array $uri_args) : Response
+    {
+        $supplied_astronaut_id = $uri_args["astronaut_id"];
+        $astronaut = $this->astronaut_model->getAstronautById($supplied_astronaut_id);
+
+        $response = $this->makeResponse($response, $astronaut);
         return $response;
     }
 }
