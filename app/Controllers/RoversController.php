@@ -19,4 +19,10 @@ class RoversController extends BaseController
         return $this->makeResponse($response,$rovers);
     }
 
+    public function handleGetRover(Request $request, Response $response, array $uri_args){
+        $rover_id = $uri_args["rover_id"];
+        $rover["Rover"] = $this->rover_model->getRover($rover_id);    
+        return $this->makeResponse($response,$rover);
+    }
+
 }

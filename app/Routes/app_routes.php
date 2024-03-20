@@ -48,8 +48,10 @@ $app->get("/missions/{mission_id}/rockets", [MissionController::class, "handleGe
 //* ROUTE: GET /missions/{planet_id}/rovers
 $app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGetMissionRoversById"]);
 
-
 //* ROUTE: GET /rovers
 $app->get("/rovers", [RoversController::class, "handleGetAllRovers"]);
+//* ROUTE: GET /rovers/{rover_id}
+$app->get("/rovers/{rover_id}", [RoversController::class, "handleGetRover"]);
+
 //* ROUTE: GET /astronauts
 $app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);
