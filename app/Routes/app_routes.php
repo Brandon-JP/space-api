@@ -9,6 +9,7 @@ use Vanier\Api\Controllers\AboutController;
 use Vanier\Api\Controllers\AstronautController;
 use Vanier\Api\Controllers\MissionController;
 use Vanier\Api\Controllers\PlanetController;
+use Vanier\Api\Controllers\RoversController;
 use Vanier\Api\Helpers\DateTimeHelper;
 
 // Import the app instance into this file's scope.
@@ -46,6 +47,12 @@ $app->get("/missions/{mission_id}", [MissionController::class,"handleGetMissionB
 $app->get("/missions/{mission_id}/rockets", [MissionController::class, "handleGetMissionRocketsById"]);
 //* ROUTE: GET /missions/{planet_id}/rovers
 $app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGetMissionRoversById"]);
+
+//* ROUTE: GET /rovers
+$app->get("/rovers", [RoversController::class, "handleGetAllRovers"]);
+//* ROUTE: GET /rovers/{rover_id}
+$app->get("/rovers/{rover_id}", [RoversController::class, "handleGetRover"]);
+
 //* ROUTE: GET /astronauts
 $app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);
 //* ROUTE: GET /astronauts/{astronaut_id}
