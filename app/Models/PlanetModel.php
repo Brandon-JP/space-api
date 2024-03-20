@@ -126,4 +126,24 @@ class PlanetModel extends BaseModel
         $planet = (array)$this->fetchSingle($sql_query, $placeholder_values);
         return $planet;
     }
+
+    public function getPlanetMoonsById(string $planet_id) : array
+    {
+        $data = [];
+        $planet = $this->getPlanetById($planet_id);
+        $data["planet"] = $planet;
+
+        $sql_query = "SELECT * FROM moon
+            WHERE planet_id = :planet_id
+        ";
+        $placeholder_values = [];
+        $placeholder_values["planet_id"] = $planet_id;
+
+        $moons = $this->fetchAll($sql_query, $placeholder_values);
+        $data["moons"] = $moons;
+
+        return $data;
+    }
+
+    
 }

@@ -68,7 +68,8 @@ class MissionModel extends BaseModel
         ";
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
-        $mission = (array)$this->fetchSingle($sql_query, $placeholder_values);
+        $mission = (array)$this->fetchSingle
+        ($sql_query, $placeholder_values);
         return $mission;
     }
 }

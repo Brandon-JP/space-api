@@ -32,4 +32,13 @@ class PlanetController extends BaseController
         $response = $this->makeResponse($response, $planet);
         return $response;
     }
+
+    public function handleGetPlanetMoonsById(Request $request, Response $response, array $uri_args) : Response
+    {
+        $supplied_planet_id = $uri_args["planet_id"];
+        $planet_moons = $this->planet_model->getPlanetMoonsById($supplied_planet_id);
+
+        $response = $this->makeResponse($response, $planet_moons);
+        return $response;
+    }
 }
