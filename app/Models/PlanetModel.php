@@ -145,5 +145,21 @@ class PlanetModel extends BaseModel
         return $data;
     }
 
-    
+    public function getPlanetRoversById(string $planet_id) : array 
+    {
+        $data = [];
+        $planet = $this->getPlanetById($planet_id);
+        $data["planet"] = $planet;
+
+        $sql_query = "SELECT * FROM rover
+            WHERE planet_id = :planet_id
+        ";
+        $placeholder_values = [];
+        $placeholder_values["planet_id"] = $planet_id;
+
+        $rovers = $this->fetchAll($sql_query, $placeholder_values);
+        $data["rovers"] = $rovers;
+
+        return $data;
+    }   
 }
