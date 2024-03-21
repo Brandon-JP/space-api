@@ -29,6 +29,8 @@ class AstronautController extends BaseController
     public function handleGetAstronautById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_astronaut_id = $uri_args["astronaut_id"];
+        $this->validateIntId($request, $supplied_astronaut_id);
+
         $astronaut = $this->astronaut_model->getAstronautById($supplied_astronaut_id);
 
         $response = $this->makeResponse($response, $astronaut);

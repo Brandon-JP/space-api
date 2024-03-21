@@ -23,6 +23,7 @@ class PlanetController extends BaseController
             $planets_filters["page"] ?? 1,
             $planets_filters["page_size"] ?? 15
         );
+        
         $planets = $this->planet_model->getAllPlanets($planets_filters);
         $response = $this->makeResponse($response, $planets);
         return $response;
@@ -32,6 +33,8 @@ class PlanetController extends BaseController
     public function handleGetPlanetById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_planet_id = $uri_args["planet_id"];
+        $this->validateIntId($request, $supplied_planet_id);
+
         $planet = $this->planet_model->getPlanetById($supplied_planet_id);
 
         $response = $this->makeResponse($response, $planet);
@@ -41,6 +44,8 @@ class PlanetController extends BaseController
     public function handleGetPlanetMoonsById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_planet_id = $uri_args["planet_id"];
+        $this->validateIntId($request, $supplied_planet_id);
+
         $planet_moons_filters = $request->getQueryParams();
         
         $this->planet_model->setPaginationOptions(
@@ -57,6 +62,8 @@ class PlanetController extends BaseController
     public function handleGetPlanetRoversById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_planet_id = $uri_args["planet_id"];
+        $this->validateIntId($request, $supplied_planet_id);
+        
         $planet_rovers_filters = $request->getQueryParams();
         $this->planet_model->setPaginationOptions(
             $request,

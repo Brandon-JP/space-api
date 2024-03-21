@@ -29,6 +29,8 @@ class MissionController extends BaseController
     public function handleGetMissionById(Request $request, Response $response, array $uri_args) : Response 
     {
         $supplied_mission_id = $uri_args["mission_id"];
+        $this->validateIntId($request, $supplied_mission_id);
+
         $mission = $this->mission_model->getMissionById($supplied_mission_id);
         $response = $this->makeResponse($response, $mission);
         return $response;
@@ -37,6 +39,8 @@ class MissionController extends BaseController
     public function handleGetMissionRocketsById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_mission_id = $uri_args["mission_id"];
+        $this->validateIntId($request, $supplied_mission_id);
+
         $mission_rockets_filters = $request->getQueryParams();
         $this->mission_model->setPaginationOptions(
             $request,
@@ -53,6 +57,8 @@ class MissionController extends BaseController
     public function handleGetMissionRoversById(Request $request, Response $response, array $uri_args) : Response
     {
         $supplied_mission_id = $uri_args["mission_id"];
+        $this->validateIntId($request, $supplied_mission_id);
+        
         $mission_rovers_filters = $request->getQueryParams();
         $this->mission_model->setPaginationOptions(
             $request,
