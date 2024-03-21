@@ -24,7 +24,7 @@ abstract class BaseController
         $id_valid = InputsHelper::isInt($subject, 1);
         if(!$id_valid)
         {
-            $invalid_id_exception_message = "The supplied ID is in an incorrect format.";
+            $invalid_id_exception_message = "The supplied ID is in an incorrect format. It must be a number greater or equal to 1.";
             throw new HttpInvalidInputException($request, $invalid_id_exception_message);
         }
     }
