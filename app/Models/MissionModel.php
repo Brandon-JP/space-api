@@ -6,13 +6,12 @@ class MissionModel extends BaseModel
 {
     public function getAllMissions(array $filters) : array
     {
-        
         $sql_query = "SELECT * from mission WHERE 1 ";
         $addMissionsFiltersResults = $this->addGetAllMissionsFilters($sql_query, $filters);
         $sql_query = $addMissionsFiltersResults["sql_query"];
         $placeholder_values = $addMissionsFiltersResults["placeholder_values"];
 
-        
+        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
         $missions = (array)$this->paginate($sql_query, $placeholder_values);
         return $missions;
     }
@@ -89,7 +88,7 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
-        
+        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
         $rockets = $this->paginate($sql_query, $placeholder_values);
         $data["rockets"] = $rockets;
         return $data;
@@ -108,7 +107,7 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
-
+        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
         $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
         return $data;

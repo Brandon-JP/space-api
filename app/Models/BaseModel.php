@@ -286,4 +286,43 @@ abstract class BaseModel
             throw new HttpInvalidInputException($request, $invalid_records_per_page_filters_message);
         }
     }
+
+    /**
+     * Adds a sorting clause to a sql query string
+     * @param string $sql_query The SQL query to which a sorting clause should be added
+     * @param string $sorting_column The sorting column that should be used
+     * @param string $sorting_order The sorting order of the sorting clause
+     * @return string The resulting SQL query
+     */
+    public function addSortingClause(string $sql_query, string $sorting_column, string $sorting_order = "ascending") : string
+    {
+        if(mb_strlen($sorting_column, "UTF-8") > 0)
+        {
+            $sql_query .= " ORDER BY $sorting_column ";
+            $sql_query = $this->addSortingOrder($sql_query, $sorting_order);
+        }
+        return $sql_query;
+    }
+
+    /**
+     * Adds a sorting order (ASC or DESC) to a SQL query
+     * @param string $sql_query The SQL query string that should receive the sorting order
+     * @param string $sorting_order The sorting order used to decide which sorting order should be used. This can be ascending or descending
+     * @return string The resulting SQL query
+     */
+    private function addSortingOrder(string $sql_query, string $sorting_order) : string
+    {
+        switch($sorting_order)
+        {
+            case "ascending":
+                $sql_query .= " ASC ";
+                break;
+            case "descending":
+                $sql_query .= " DESC ";
+                break;
+            default:
+                $sql_query .= " ASC ";
+        }
+        return $sql_query;
+    }
 }

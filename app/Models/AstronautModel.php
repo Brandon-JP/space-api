@@ -12,7 +12,7 @@ class AstronautModel extends BaseModel
         $sql_query = $addAstronautsFiltersResults["sql_query"];
         $placeholder_values = $addAstronautsFiltersResults["placeholder_values"];
 
-        
+        $sql_query = $this->addSortingClause($sql_query, "last_name", $filters["sorting_order"] ?? "ascending");
         $astronauts = (array)$this->paginate($sql_query, $placeholder_values);
 
         return $astronauts;

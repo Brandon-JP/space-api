@@ -20,6 +20,7 @@ class AstronautController extends BaseController
             $astronauts_filters["page"] ?? 1,
             $astronauts_filters["page_size"] ?? 15
         );
+
         $astronauts = $this->astronaut_model->getAllAstronauts($astronauts_filters);
         $response = $this->makeResponse($response, $astronauts);
         return $response;

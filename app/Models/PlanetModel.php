@@ -15,8 +15,9 @@ class PlanetModel extends BaseModel
         $sql_query = $addPlanetsFiltersResults["sql_query"];
         $placeholder_values = $addPlanetsFiltersResults["placeholder_values"];
 
-        
+        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
         $planets = (array)$this->paginate($sql_query, $placeholder_values);
+        
         return $planets;
     }
 
@@ -142,7 +143,9 @@ class PlanetModel extends BaseModel
         ";
         $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
+        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
         $moons = $this->paginate($sql_query, $placeholder_values);
+        
         $data["moons"] = $moons;
 
         return $data;
@@ -160,6 +163,7 @@ class PlanetModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
 
+        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
         $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
 
