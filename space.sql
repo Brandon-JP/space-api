@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2024 at 01:26 PM
+-- Generation Time: Mar 28, 2024 at 03:44 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,7 +65,7 @@ INSERT INTO `astronaut` (`astronaut_id`, `first_name`, `last_name`, `gender`, `c
 DROP TABLE IF EXISTS `meteorite`;
 CREATE TABLE `meteorite` (
   `meteorite_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `meteorite_name` varchar(32) NOT NULL,
   `recclass` varchar(16) NOT NULL,
   `mass` int(11) NOT NULL,
   `fall` enum('Fell','Found') NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE `meteorite` (
 -- Dumping data for table `meteorite`
 --
 
-INSERT INTO `meteorite` (`meteorite_id`, `name`, `recclass`, `mass`, `fall`, `year`, `reclat`, `reclong`) VALUES
+INSERT INTO `meteorite` (`meteorite_id`, `meteorite_name`, `recclass`, `mass`, `fall`, `year`, `reclat`, `reclong`) VALUES
 (1, 'Aachen', 'L5', 21, 'Fell', '0000', 50.775, 6.08333),
 (2, 'Bali', 'CV3', 1000, 'Fell', '1907', 5.38333, 16.3833),
 (3, 'Blanket', 'L6', 68, 'Fell', '1909', 31.8333, 98.8333),
@@ -99,7 +99,7 @@ INSERT INTO `meteorite` (`meteorite_id`, `name`, `recclass`, `mass`, `fall`, `ye
 DROP TABLE IF EXISTS `mission`;
 CREATE TABLE `mission` (
   `mission_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
+  `mission_name` varchar(64) NOT NULL,
   `astronaut_count` int(11) NOT NULL,
   `status` enum('Success','Failure','Partial Failure','Prelaunch Failure') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -108,7 +108,7 @@ CREATE TABLE `mission` (
 -- Dumping data for table `mission`
 --
 
-INSERT INTO `mission` (`mission_id`, `name`, `astronaut_count`, `status`) VALUES
+INSERT INTO `mission` (`mission_id`, `mission_name`, `astronaut_count`, `status`) VALUES
 (1, 'Luna 17', 0, 'Success'),
 (2, 'Luna 21', 0, 'Success'),
 (3, 'Chang\'e 3', 0, 'Success'),
@@ -199,7 +199,7 @@ INSERT INTO `mission_rover` (`mission_id`, `rover_id`, `launch_date`, `launch_ti
 DROP TABLE IF EXISTS `moon`;
 CREATE TABLE `moon` (
   `moon_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `moon_name` varchar(32) NOT NULL,
   `planet_id` int(11) NOT NULL,
   `radius` float NOT NULL,
   `density` float NOT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE `moon` (
 -- Dumping data for table `moon`
 --
 
-INSERT INTO `moon` (`moon_id`, `name`, `planet_id`, `radius`, `density`, `magnitude`, `albedo`) VALUES
+INSERT INTO `moon` (`moon_id`, `moon_name`, `planet_id`, `radius`, `density`, `magnitude`, `albedo`) VALUES
 (1, 'Moon', 3, 1737.5, 3.344, -12.74, 0.12),
 (2, 'Phobos', 4, 11.1, 1.872, 11.4, 0.071),
 (3, 'Titan', 6, 2574.73, 1.882, 8.4, 0.2),
@@ -232,7 +232,7 @@ INSERT INTO `moon` (`moon_id`, `name`, `planet_id`, `radius`, `density`, `magnit
 DROP TABLE IF EXISTS `planet`;
 CREATE TABLE `planet` (
   `planet_id` int(11) NOT NULL,
-  `name` varchar(16) NOT NULL,
+  `planet_name` varchar(16) NOT NULL,
   `mass` float NOT NULL,
   `diameter` int(11) NOT NULL,
   `density` int(11) NOT NULL,
@@ -247,7 +247,7 @@ CREATE TABLE `planet` (
 -- Dumping data for table `planet`
 --
 
-INSERT INTO `planet` (`planet_id`, `name`, `mass`, `diameter`, `density`, `gravity`, `escape_velocity`, `rotation_period`, `mission_count`, `moon_count`) VALUES
+INSERT INTO `planet` (`planet_id`, `planet_name`, `mass`, `diameter`, `density`, `gravity`, `escape_velocity`, `rotation_period`, `mission_count`, `moon_count`) VALUES
 (1, 'Mercury', 0.33, 4879, 5427, 3.7, 4.3, 1407.6, 0, 0),
 (2, 'Venus', 4.87, 12104, 5243, 8.9, 10.4, -5832.5, 0, 0),
 (3, 'Earth', 5.97, 12756, 5514, 9.8, 11.2, 23.9, 0, 0),
@@ -266,7 +266,7 @@ INSERT INTO `planet` (`planet_id`, `name`, `mass`, `diameter`, `density`, `gravi
 DROP TABLE IF EXISTS `rocket`;
 CREATE TABLE `rocket` (
   `rocket_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `rocket_name` varchar(32) NOT NULL,
   `company` varchar(32) NOT NULL,
   `status` enum('Retired','Active','Planned') NOT NULL,
   `liftoff_thrust` int(11) NOT NULL,
@@ -281,7 +281,7 @@ CREATE TABLE `rocket` (
 -- Dumping data for table `rocket`
 --
 
-INSERT INTO `rocket` (`rocket_id`, `name`, `company`, `status`, `liftoff_thrust`, `payload_to_leo`, `stages`, `side_strap_count`, `rocket_height`, `cost`) VALUES
+INSERT INTO `rocket` (`rocket_id`, `rocket_name`, `company`, `status`, `liftoff_thrust`, `payload_to_leo`, `stages`, `side_strap_count`, `rocket_height`, `cost`) VALUES
 (1, 'Proton-K/Block D', 'Khrunichev', 'Retired', 8681, 18.9, 3, 0, 58.46, NULL),
 (2, 'Long March 3B/E', 'CASC', 'Active', 5922, 11.5, 3, 4, 56.3, 29.15),
 (3, 'Delta II 7925', 'ULA', 'Retired', 3511, 0, 3, 9, 38.1, NULL),
@@ -298,7 +298,7 @@ INSERT INTO `rocket` (`rocket_id`, `name`, `company`, `status`, `liftoff_thrust`
 DROP TABLE IF EXISTS `rover`;
 CREATE TABLE `rover` (
   `rover_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `rover_name` varchar(32) NOT NULL,
   `country` varchar(64) NOT NULL,
   `agency` varchar(16) DEFAULT NULL,
   `moon_id` int(11) DEFAULT NULL,
@@ -309,7 +309,7 @@ CREATE TABLE `rover` (
 -- Dumping data for table `rover`
 --
 
-INSERT INTO `rover` (`rover_id`, `name`, `country`, `agency`, `moon_id`, `planet_id`) VALUES
+INSERT INTO `rover` (`rover_id`, `rover_name`, `country`, `agency`, `moon_id`, `planet_id`) VALUES
 (1, 'Lunokhod 1', 'USSR', NULL, 1, NULL),
 (2, 'Lunokhod 2', 'USSR', NULL, 1, NULL),
 (3, 'PrOP-M', 'USSR', NULL, NULL, 4),

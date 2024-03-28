@@ -10,7 +10,7 @@ class MoonModel extends BaseModel
 
     public function getAllMoons(array $filters){
         $filter_values = array();
-        $sql = "SELECT m.*, p.name FROM moon m, planet p WHERE p.planet_id = m.planet_id";
+        $sql = "SELECT m.* FROM moon m, planet p WHERE p.planet_id = m.planet_id";
 
         if(isset($filters["name"])){
             $sql .= " AND m.name LIKE CONCAT(:m_name,'%')";
@@ -62,7 +62,7 @@ class MoonModel extends BaseModel
             $filter_values["to_alb"] = $filters["to_albedo"];
         }
 
-      //  $sql = $this->addSortingClause($sql, "name", $filters["sorting_order"] ?? "ascending");
+        $sql = $this->addSortingClause($sql, "m.name", $filters["sorting_order"] ?? "ascending");
 
 
         return (array)$this->paginate($sql, $filter_values);
