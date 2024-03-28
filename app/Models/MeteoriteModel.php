@@ -21,7 +21,7 @@ class MeteoriteModel extends BaseModel
         return $meteorites;
     }
 
-    private function addMeteoritesFilters(string $sql_query, array $filters, array $placeholder_values = []) : array
+    public function addMeteoritesFilters(string $sql_query, array $filters, array $placeholder_values = []) : array
     {
         if(isset($filters["name"]))
         {
@@ -67,13 +67,13 @@ class MeteoriteModel extends BaseModel
 
         if (isset($filters["from_reclat"]))
         {
-            $sql_query .= " AND reclat >= :meteorite_reclat ";
+            $sql_query .= " AND reclat >= :meteorite_from_reclat ";
             $placeholder_values["meteorite_from_reclat"] = $filters["from_reclat"];
         }
 
         if (isset($filters["to_reclat"]))
         {
-            $sql_query .= " AND reclat <= :meteorite_reclat ";
+            $sql_query .= " AND reclat <= :meteorite_to_reclat ";
             $placeholder_values["meteorite_to_reclat"] = $filters["to_reclat"];
         }
 
@@ -85,7 +85,7 @@ class MeteoriteModel extends BaseModel
 
         if (isset($filters["to_reclong"]))
         {
-            $sql_query .= " AND reclong <= :meteorite_reclong ";
+            $sql_query .= " AND reclong <= :meteorite_to_reclong ";
             $placeholder_values["meteorite_to_reclong"] = $filters["to_reclong"];
         }
 

@@ -88,6 +88,13 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
+        $rocket_model = new RocketModel();
+        $addRocketFiltersResults = $rocket_model->addRocketFilters($sql_query, $placeholder_values);
+        $sql_query = $addRocketFiltersResults["sql_query"];
+        $placeholder_values = $addRocketFiltersResults["placeholder_values"];
+
+
+    
         $sql_query = $this->addSortingClause($sql_query, "rocket_name", $filters["sorting_order"] ?? "ascending");
         $rockets = $this->paginate($sql_query, $placeholder_values);
         $data["rockets"] = $rockets;
@@ -106,6 +113,26 @@ class MissionModel extends BaseModel
         ";
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
+
+        if(isset($filters["name"])){
+            $sql_query .= " AND rover_name LIKE CONCAT(:r_name,'%')";
+            $placeholder_values["r_name"] = $filters["name"];
+        }
+
+        if(isset($filters["country"])){
+            $sql_query .= " AND country LIKE CONCAT(:r_country,'%')";
+            $placeholder_values["r_country"] = $filters["country"];
+        }
+
+        if(isset($filters["agency"])){
+            $sql_query .= " AND agency LIKE CONCAT(:r_agency,'%')";
+            $placeholder_values["r_agency"] = $filters["agency"];
+        }
+
+        if(isset($filters["from_landing_date"])){
+            $sql_query .= " AND agency LIKE CONCAT(:r_agency,'%')";
+            $placeholder_values["r_agency"] = $filters["agency"];
+        }
 
         $sql_query = $this->addSortingClause($sql_query, "rover_name", $filters["sorting_order"] ?? "ascending");
         $rovers = $this->paginate($sql_query, $placeholder_values);

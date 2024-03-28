@@ -18,7 +18,7 @@ class RocketModel extends BaseModel
         return $rockets;
     }
 
-    private function addRocketFilters(string $sql_query, array $filters, array $placeholder_values = []): array
+    public function addRocketFilters(string $sql_query, array $filters, array $placeholder_values = []): array
     {
         if (isset($filters["name"])) {
             $sql_query .= " AND rocket_name LIKE CONCAT(:rocket_name, '%') ";
@@ -58,7 +58,7 @@ class RocketModel extends BaseModel
 
         if (isset($filters["from_stages"])) {
             $sql_query .= " AND stages >= :rocket_from_stages ";
-            $placeholder_values["rocket_from_stages"] = $filters["to_stages"];
+            $placeholder_values["rocket_from_stages"] = $filters["from_stages"];
         }
 
         if (isset($filters["to_stages"])) {

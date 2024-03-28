@@ -17,7 +17,7 @@ class AstronautModel extends BaseModel
 
         return $astronauts;
     }
-    private function addGetAllAstronautsFilters(string $sql_query, array $filters, array $placeholder_values = [])
+    public function addGetAllAstronautsFilters(string $sql_query, array $filters, array $placeholder_values = [])
     {
         if(isset($filters["first_name"]))
         {
