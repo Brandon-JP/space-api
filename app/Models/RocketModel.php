@@ -35,36 +35,67 @@ class RocketModel extends BaseModel
             $placeholder_values["rocket_status"] = $filters["status"];
         }
 
-        if (isset($filters["liftoff_thrust"])) {
-            $sql_query .= " AND liftoff_thrust >= :rocket_liftoff_thrust ";
-            $placeholder_values["rocket_liftoff_thrust"] = $filters["liftoff_thrust"];
+        if (isset($filters["from_liftoff_thrust"])) {
+            $sql_query .= " AND liftoff_thrust >= :rocket_from_liftoff_thrust ";
+            $placeholder_values["rocket_from_liftoff_thrust"] = $filters["from_liftoff_thrust"];
         }
 
-        if (isset($filters["payload_to_leo"])) {
-            $sql_query .= " AND payload_to_leo >= :rocket_payload_to_leo ";
-            $placeholder_values["rocket_payload_to_leo"] = $filters["payload_to_leo"];
+        if (isset($filters["to_liftoff_thrust"])) {
+            $sql_query .= " AND liftoff_thrust <= :rocket_to_liftoff_thrust ";
+            $placeholder_values["rocket_to_liftoff_thrust"] = $filters["to_liftoff_thrust"];
         }
 
-        if (isset($filters["stages"])) {
-            $sql_query .= " AND stages = :rocket_stages ";
-            $placeholder_values["rocket_stages"] = $filters["stages"];
+        if (isset($filters["from_payload_to_leo"])) {
+            $sql_query .= " AND payload_to_leo >= :rocket_from_payload_to_leo ";
+            $placeholder_values["rocket_from_payload_to_leo"] = $filters["from_payload_to_leo"];
         }
 
-        if (isset($filters["side_strap_count"])) {
-            $sql_query .= " AND side_strap_count = :rocket_side_strap_count ";
-            $placeholder_values["rocket_side_strap_count"] = $filters["side_strap_count"];
+        if(isset($filters["to_payload_to_leo"]))
+        {
+            $sql_query .= " AND payload_to_leo <= :rocket_to_payload_to_leo ";
+            $placeholder_values["rocket_to_payload_to_leo"] = $filters["to_payload_to_leo"];
         }
 
-        if (isset($filters["rocket_height"])) {
-            $sql_query .= " AND rocket_height >= :rocket_rocket_height ";
-            $placeholder_values["rocket_rocket_height"] = $filters["rocket_height"];
+        if (isset($filters["from_stages"])) {
+            $sql_query .= " AND stages >= :rocket_from_stages ";
+            $placeholder_values["rocket_from_stages"] = $filters["to_stages"];
         }
 
-        if (isset($filters["cost"])) {
-            $sql_query .= " AND cost <= :rocket_cost ";
-            $placeholder_values["rocket_cost"] = $filters["cost"];
+        if (isset($filters["to_stages"])) {
+            $sql_query .= " AND stages <= :rocket_to_stages ";
+            $placeholder_values["rocket_to_stages"] = $filters["to_stages"];
         }
 
+        if (isset($filters["from_side_strap_count"])) {
+            $sql_query .= " AND side_strap_count >= :rocket_from_side_strap_count ";
+            $placeholder_values["rocket_from_side_strap_count"] = $filters["from_side_strap_count"];
+        }
+
+        if (isset($filters["to_side_strap_count"])) {
+            $sql_query .= " AND side_strap_count <= :rocket_to_side_strap_count ";
+            $placeholder_values["rocket_to_side_strap_count"] = $filters["to_side_strap_count"];
+        }
+
+        if (isset($filters["from_rocket_height"])) {
+            $sql_query .= " AND rocket_height >= :rocket_from_rocket_height ";
+            $placeholder_values["rocket_from_rocket_height"] = $filters["from_rocket_height"];
+        }
+
+        if (isset($filters["to_rocket_height"])) {
+            $sql_query .= " AND rocket_height <= :rocket_to_rocket_height ";
+            $placeholder_values["rocket_to_rocket_height"] = $filters["to_rocket_height"];
+        }
+
+        if (isset($filters["from_cost"])) {
+            $sql_query .= " AND cost >= :rocket_from_cost ";
+            $placeholder_values["rocket_from_cost"] = $filters["from_cost"];
+        }
+
+        if (isset($filters["to_cost"])) {
+            $sql_query .= " AND cost <= :rocket_to_cost ";
+            $placeholder_values["rocket_to_cost"] = $filters["to_cost"];
+        }
+        
         return [
             "sql_query" => $sql_query,
             "placeholder_values" => $placeholder_values
