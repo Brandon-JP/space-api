@@ -16,7 +16,7 @@ class RoversModel extends BaseModel
         $sql = "SELECT * FROM rover WHERE 1 ";
 
         if(isset($filters["name"])){
-            $sql .= " AND name LIKE CONCAT(:r_name,'%')";
+            $sql .= " AND rover_name LIKE CONCAT(:r_name,'%')";
             $filter_values["r_name"] = $filters["name"];
         }
 
@@ -35,6 +35,7 @@ class RoversModel extends BaseModel
             $filter_values["r_agency"] = $filters["agency"];
         }
 
+        $sql = $this->addSortingClause($sql, "rover_name", $filters["sorting_order"] ?? "ascending");
 
         return (array) $this->paginate($sql, $filter_values);
     }
@@ -52,6 +53,8 @@ class RoversModel extends BaseModel
 
         $sql = "SELECT rm.* FROM mission_rover rm WHERE 
         rm.rover_id = '$rover_id'";
+
+        $sql = $this->addSortingClause($sql, "mission_name", $filters["sorting_order"] ?? "ascending");
 
         return (array) $this->paginate($sql, $filter_values);
     }

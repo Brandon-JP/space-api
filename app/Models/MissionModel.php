@@ -11,7 +11,7 @@ class MissionModel extends BaseModel
         $sql_query = $addMissionsFiltersResults["sql_query"];
         $placeholder_values = $addMissionsFiltersResults["placeholder_values"];
 
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "mission_name", $filters["sorting_order"] ?? "ascending");
         $missions = (array)$this->paginate($sql_query, $placeholder_values);
         return $missions;
     }
@@ -20,7 +20,7 @@ class MissionModel extends BaseModel
     {
         if(isset($filters["name"]))
         {
-            $sql_query .= " AND name LIKE CONCAT(:mission_name, '%') ";
+            $sql_query .= " AND mission_name LIKE CONCAT(:mission_name, '%') ";
             $placeholder_values["mission_name"] = $filters["name"];
         }
 
@@ -88,7 +88,7 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "rocket_name", $filters["sorting_order"] ?? "ascending");
         $rockets = $this->paginate($sql_query, $placeholder_values);
         $data["rockets"] = $rockets;
         return $data;
@@ -107,7 +107,7 @@ class MissionModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["mission_id"] = $mission_id;
 
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "rover_name", $filters["sorting_order"] ?? "ascending");
         $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
         return $data;

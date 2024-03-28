@@ -15,7 +15,7 @@ class PlanetModel extends BaseModel
         $sql_query = $addPlanetsFiltersResults["sql_query"];
         $placeholder_values = $addPlanetsFiltersResults["placeholder_values"];
 
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "planet_name", $filters["sorting_order"] ?? "ascending");
         $planets = (array)$this->paginate($sql_query, $placeholder_values);
         
         return $planets;
@@ -25,7 +25,7 @@ class PlanetModel extends BaseModel
     {
         if(isset($filters["name"]))
         {
-            $sql_query .= " AND name LIKE CONCAT(:planet_name, '%') ";
+            $sql_query .= " AND planet_name LIKE CONCAT(:planet_name, '%') ";
             $placeholder_values["planet_name"] = $filters["name"];
         }
 
@@ -143,7 +143,7 @@ class PlanetModel extends BaseModel
         ";
         $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "moon_name", $filters["sorting_order"] ?? "ascending");
         $moons = $this->paginate($sql_query, $placeholder_values);
         
         $data["moons"] = $moons;
@@ -163,7 +163,7 @@ class PlanetModel extends BaseModel
         $placeholder_values = [];
         $placeholder_values["planet_id"] = $planet_id;
 
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "rover_name", $filters["sorting_order"] ?? "ascending");
         $rovers = $this->paginate($sql_query, $placeholder_values);
         $data["rovers"] = $rovers;
 

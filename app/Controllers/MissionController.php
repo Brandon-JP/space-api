@@ -12,6 +12,7 @@ class MissionController extends BaseController
 
     public function __construct() {
         $this->mission_model = new MissionModel();
+        
     }
     public function handleGetAllMissions(Request $request, Response $response, array $uri_args) : Response
     {

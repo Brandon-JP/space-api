@@ -17,7 +17,7 @@ class RocketModel extends BaseModel
     private function addRocketFilters(string $sql_query, array $filters): string
     {
         if (isset($filters["name"])) {
-            $sql_query .= " AND name LIKE CONCAT(:rocket_name, '%') ";
+            $sql_query .= " AND rocket_name LIKE CONCAT(:rocket_name, '%') ";
             $this->placeholderValues["rocket_name"] = $filters["name"];
         }
 

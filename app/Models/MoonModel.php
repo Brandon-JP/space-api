@@ -10,15 +10,15 @@ class MoonModel extends BaseModel
 
     public function getAllMoons(array $filters){
         $filter_values = array();
-        $sql = "SELECT m.* FROM moon m, planet p WHERE p.planet_id = m.planet_id";
+        $sql = "SELECT m.*, p.planet_name FROM moon m, planet p WHERE p.planet_id = m.planet_id";
 
         if(isset($filters["name"])){
-            $sql .= " AND m.name LIKE CONCAT(:m_name,'%')";
+            $sql .= " AND m.moon_name LIKE CONCAT(:m_name,'%')";
             $filter_values["m_name"] = $filters["name"];
         }
 
         if(isset($filters["planet"])){
-            $sql .= " AND p.name LIKE CONCAT(:p_name,'%')";
+            $sql .= " AND p.planet_name LIKE CONCAT(:p_name,'%')";
             $filter_values["p_name"] = $filters["planet"];
         }
 
@@ -62,7 +62,7 @@ class MoonModel extends BaseModel
             $filter_values["to_alb"] = $filters["to_albedo"];
         }
 
-        $sql = $this->addSortingClause($sql, "m.name", $filters["sorting_order"] ?? "ascending");
+        $sql = $this->addSortingClause($sql, "m.moon_name", $filters["sorting_order"] ?? "ascending");
 
 
         return (array)$this->paginate($sql, $filter_values);
@@ -81,6 +81,27 @@ class MoonModel extends BaseModel
 
         $sql = "SELECT r.* FROM rover r WHERE moon_id = '$moon_id'";
         
+
+        
+        if(isset($filters["name"])){
+            $sql .= " AND r.rover_name LIKE CONCAT(:r_name,'%')";
+            $filter_values["r_name"] = $filters["name"];
+        }
+
+        if(isset($filters["country"])){
+            $sql .= " AND r.country LIKE CONCAT(:r_country,'%')";
+            $filter_values["r_country"] = $filters["country"];
+        }
+
+        if(isset($filters["agency"])){
+            $sql .= " AND r.agency LIKE CONCAT(:r_agency,'%')";
+            $filter_values["r_agency"] = $filters["agency"];
+        }
+
+        if(isset($filters["from_landing_date"])){
+            $sql .= " AND r.agency LIKE CONCAT(:r_agency,'%')";
+            $filter_values["r_agency"] = $filters["agency"];
+        }
 
         return (array) $this->paginate($sql, $filter_values);
     }

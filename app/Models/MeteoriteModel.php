@@ -15,7 +15,7 @@ class MeteoriteModel extends BaseModel
         $sql_query = $this->addMeteoritesFilters($sql_query, $filters);
         $placeholder_values = [];
 
-        $sql_query = $this->addSortingClause($sql_query, "name", $filters["sorting_order"] ?? "ascending");
+        $sql_query = $this->addSortingClause($sql_query, "meteorite_name", $filters["sorting_order"] ?? "ascending");
         $meteorites = (array)$this->paginate($sql_query, $placeholder_values);
 
         return $meteorites;
@@ -25,7 +25,7 @@ class MeteoriteModel extends BaseModel
     {
         if(isset($filters["name"]))
         {
-            $sql_query .= " AND name LIKE CONCAT(:meteorite_name, '%') ";
+            $sql_query .= " AND meteorite_name LIKE CONCAT(:meteorite_name, '%') ";
             $placeholder_values["meteorite_name"] = $filters["name"];
         }
 
