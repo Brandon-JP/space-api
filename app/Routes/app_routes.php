@@ -12,6 +12,8 @@ use Vanier\Api\Controllers\MoonController;
 use Vanier\Api\Controllers\PlanetController;
 use Vanier\Api\Controllers\RoversController;
 use Vanier\Api\Helpers\DateTimeHelper;
+use Vanier\Api\Controllers\RocketController;
+use Vanier\Api\Controllers\MeteoriteController;
 
 // Import the app instance into this file's scope.
 global $app;
@@ -67,3 +69,15 @@ $app->get("/moons/{moon_id}/rovers", [MoonController::class, "handleGetMoonRover
 $app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);
 //* ROUTE: GET /astronauts/{astronaut_id}
 $app->get("/astronauts/{astronaut_id}", [AstronautController::class, "handleGetAstronautById"]);
+
+//* ROUTE: GET /meteorites
+$app->get("/meteorites", [MeteoriteController::class, "handleGetAllMeteorites"]);
+//* ROUTE: GET /meteorites/{meteorite_id}
+$app->get("/meteorites/{meteorite_id}", [MeteoriteController::class, "handleGetAllMeteoriteByID"]);
+
+//* ROUTE: GET /rockets
+$app->get("/rockets", [RocketController::class, "handleGetAllRockets"]);
+//* ROUTE: GET /rockets/{rocket_id}
+$app->get("/rockets/{rocket_id}", [RocketController::class, "handleGetRocketById"]);
+//* ROUTE: GET /rockets/{rocket_id}/missions
+$app->get("/rockets/{rocket_id}/missions", [RocketController::class, "handleGetRocketByIdMission"]);
