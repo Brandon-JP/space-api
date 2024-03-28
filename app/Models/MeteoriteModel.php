@@ -21,7 +21,7 @@ class MeteoriteModel extends BaseModel
         return $meteorites;
     }
 
-    private function addMeteoritesFilters(string $sql_query, array $filters) : string
+    private function addMeteoritesFilters(string $sql_query, array $filters, array $placeholder_values = []) : array
     {
         if(isset($filters["name"]))
         {
@@ -35,10 +35,16 @@ class MeteoriteModel extends BaseModel
             $placeholder_values["meteorite_recclass"] = $filters["recclass"];
         }
 
-        if (isset($filters["mass"]))
+        if (isset($filters["from_mass"]))
         {
-            $sql_query .= " AND mass >= :meteorite_mass ";
-            $placeholder_values["meteorite_mass"] = $filters["mass"];
+            $sql_query .= " AND mass >= :meteorite_from_mass ";
+            $placeholder_values["meteorite_from_mass"] = $filters["from_mass"];
+        }
+
+        if (isset($filters["to_mass"]))
+        {
+            $sql_query .= " AND mass <= :meteorite_to_mass ";
+            $placeholder_values["meteorite_to_mass"] = $filters["to_mass"];
         }
 
         if (isset($filters["fall"]))
@@ -47,25 +53,46 @@ class MeteoriteModel extends BaseModel
             $placeholder_values["meteorite_fall"] = $filters["fall"];
         }
 
-        if (isset($filters["year"]))
+        if (isset($filters["from_year"]))
         {
-            $sql_query .= " AND year >= :meteorite_year ";
-            $placeholder_values["meteorite_year"] = $filters["year"];
+            $sql_query .= " AND year >= :meteorite_from_year ";
+            $placeholder_values["meteorite_from_year"] = $filters["from_year"];
         }
 
-        if (isset($filters["reclat"]))
+        if (isset($filters["to_year"]))
         {
-            $sql_query .= " AND reclat = :meteorite_reclat ";
-            $placeholder_values["meteorite_reclat"] = $filters["reclat"];
+            $sql_query .= " AND year <= :meteorite_to_year ";
+            $placeholder_values["meteorite_to_year"] = $filters["to_year"];
         }
 
-        if (isset($filters["reclong"]))
+        if (isset($filters["from_reclat"]))
         {
-            $sql_query .= " AND reclong = :meteorite_reclong ";
-            $placeholder_values["meteorite_reclong"] = $filters["reclong"];
+            $sql_query .= " AND reclat >= :meteorite_reclat ";
+            $placeholder_values["meteorite_from_reclat"] = $filters["from_reclat"];
         }
 
-        return $sql_query;
+        if (isset($filters["to_reclat"]))
+        {
+            $sql_query .= " AND reclat <= :meteorite_reclat ";
+            $placeholder_values["meteorite_to_reclat"] = $filters["to_reclat"];
+        }
+
+        if (isset($filters["from_reclong"]))
+        {
+            $sql_query .= " AND reclong >= :meteorite_from_reclong ";
+            $placeholder_values["meteorite_from_reclong"] = $filters["from_reclong"];
+        }
+
+        if (isset($filters["to_reclong"]))
+        {
+            $sql_query .= " AND reclong <= :meteorite_reclong ";
+            $placeholder_values["meteorite_to_reclong"] = $filters["to_reclong"];
+        }
+
+        return [
+            "sql_query" => $sql_query,
+            "placeholder_values" => $placeholder_values
+        ];
     }
 
     public function getMeteoriteById(string $meteorite_id) : array
