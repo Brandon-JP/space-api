@@ -44,8 +44,8 @@ class RocketController extends BaseController
     {
         $supplied_rocket_id = $uri_args["rocket_id"];
         $this->validateIntId($request, $supplied_rocket_id);
-
-        $rocket_missions = $this->rocket_model->getRocketMissionsById($supplied_rocket_id);
+        $rocket_missions_filters = $request->getQueryParams();
+        $rocket_missions = $this->rocket_model->getRocketMissionsById($supplied_rocket_id, $rocket_missions_filters);
 
         $response = $this->makeResponse($response, $rocket_missions);
         return $response;

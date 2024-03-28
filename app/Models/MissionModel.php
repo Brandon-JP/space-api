@@ -7,7 +7,7 @@ class MissionModel extends BaseModel
     public function getAllMissions(array $filters) : array
     {
         $sql_query = "SELECT * from mission WHERE 1 ";
-        $addMissionsFiltersResults = $this->addGetAllMissionsFilters($sql_query, $filters);
+        $addMissionsFiltersResults = $this->addGetMissionsFilters($sql_query, $filters);
         $sql_query = $addMissionsFiltersResults["sql_query"];
         $placeholder_values = $addMissionsFiltersResults["placeholder_values"];
 
@@ -16,7 +16,7 @@ class MissionModel extends BaseModel
         return $missions;
     }
 
-    private function addGetAllMissionsFilters(string $sql_query, array $filters, array $placeholder_values = [])
+    public function addGetMissionsFilters(string $sql_query, array $filters, array $placeholder_values = [])
     {
         if(isset($filters["name"]))
         {
