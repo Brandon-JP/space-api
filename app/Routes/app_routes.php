@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Vanier\Api\Controllers\AboutController;
 use Vanier\Api\Controllers\AstronautController;
 use Vanier\Api\Controllers\MissionController;
+use Vanier\Api\Controllers\MoonController;
 use Vanier\Api\Controllers\PlanetController;
 use Vanier\Api\Controllers\RoversController;
 use Vanier\Api\Helpers\DateTimeHelper;
@@ -52,6 +53,15 @@ $app->get("/missions/{mission_id}/rovers", [MissionController::class, "handleGet
 $app->get("/rovers", [RoversController::class, "handleGetAllRovers"]);
 //* ROUTE: GET /rovers/{rover_id}
 $app->get("/rovers/{rover_id}", [RoversController::class, "handleGetRover"]);
+//* ROUTE: GET /rovers/{rover_id}/missions
+$app->get("/rovers/{rover_id}/missions", [RoversController::class, "handleGetRoverMissions"]);
+
+//* ROUTE: GET /moons
+$app->get("/moons", [MoonController::class, "handleGetAllMoons"]);
+//* ROUTE: GET /moons/{moon_id}
+$app->get("/moons/{moon_id}", [MoonController::class, "handleGetMoon"]);
+//* ROUTE: GET /moons/{moon_id}/rovers
+$app->get("/moons/{moon_id}/rovers", [MoonController::class, "handleGetMoonRovers"]);
 
 //* ROUTE: GET /astronauts
 $app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);

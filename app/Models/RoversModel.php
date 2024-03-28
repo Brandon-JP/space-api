@@ -36,7 +36,7 @@ class RoversModel extends BaseModel
         }
 
 
-        return (array) $this->fetchAll($sql, $filter_values);
+        return (array) $this->paginate($sql, $filter_values);
     }
 
 
@@ -47,12 +47,13 @@ class RoversModel extends BaseModel
     }
 
 
-    public function getRoverMissions($filters){
+    public function getRoverMissions(array $filters, string $rover_id){
         $filter_values = array();
 
-        $sql = "";
+        $sql = "SELECT rm.* FROM mission_rover rm WHERE 
+        rm.rover_id = '$rover_id'";
 
-        return (array) $this->fetchAll($sql, $filter_values);
+        return (array) $this->paginate($sql, $filter_values);
     }
 
 }
