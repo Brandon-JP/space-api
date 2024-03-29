@@ -11,12 +11,13 @@ class MeteoriteModel extends BaseModel
     public function getAllMeteorites(array $filters) : array
     {
         $sql_query = "SELECT * FROM meteorite WHERE 1";
-
-        $sql_query = $this->addMeteoritesFilters($sql_query, $filters);
-        $placeholder_values = [];
+        
+        $addMeteoriteFiltersResults = $this->addMeteoritesFilters($sql_query, $filters);
+        $sql_query = $addMeteoriteFiltersResults["sql_query"];
+        $placeholder_values = $addMeteoriteFiltersResults["placeholder_values"];
 
         $sql_query = $this->addSortingClause($sql_query, "meteorite_name", $filters["sorting_order"] ?? "ascending");
-        $meteorites = (array)$this->paginate($sql_query, $placeholder_values);
+        $meteorites = $this->paginate($sql_query, $placeholder_values);
 
         return $meteorites;
     }

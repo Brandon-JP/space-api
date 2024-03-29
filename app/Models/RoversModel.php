@@ -51,7 +51,7 @@ class RoversModel extends BaseModel
     public function getRoverMissions(array $filters, string $rover_id){
         $filter_values = array();
 
-        $sql = "SELECT rm.* FROM mission_rover rm, mission m  WHERE 
+        $sql = "SELECT rm.*, m.* FROM mission_rover rm, mission m  WHERE 
         rm.rover_id = '$rover_id' 
         AND rm.mission_id = m.mission_id";
 
