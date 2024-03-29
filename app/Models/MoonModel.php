@@ -103,6 +103,9 @@ class MoonModel extends BaseModel
             $filter_values["r_agency"] = $filters["agency"];
         }
 
+        
+        $sql = $this->addSortingClause($sql, "r.rover_name", $filters["sorting_order"] ?? "ascending");
+
         return (array) $this->paginate($sql, $filter_values);
     }
 }
