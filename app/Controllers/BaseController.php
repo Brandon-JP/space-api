@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Vanier\Api\Controllers;
 use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
-use Vanier\Api\Exceptions\HttpInvalidInputException;
+use Slim\Psr7\Response;
+use Vanier\Api\Exceptions\HttpBadRequestException;
 use Vanier\Api\Helpers\InputsHelper;
 
 abstract class BaseController
@@ -25,7 +25,9 @@ abstract class BaseController
         if(!$id_valid)
         {
             $invalid_id_exception_message = "The supplied ID is in an incorrect format. It must be a number greater or equal to 1.";
-            throw new HttpInvalidInputException($request, $invalid_id_exception_message);
+            throw new HttpBadRequestException($request, $invalid_id_exception_message);
         }
     }
+
+
 }

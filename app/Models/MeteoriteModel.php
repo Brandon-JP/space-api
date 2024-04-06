@@ -1,6 +1,9 @@
 <?php
 
 namespace Vanier\Api\Models;
+use Slim\Psr7\Request;
+use Vanier\Api\Exceptions\HttpBadRequestException;
+use Vanier\Api\Helpers\Validator;
 
 class MeteoriteModel extends BaseModel
 {
@@ -8,6 +11,57 @@ class MeteoriteModel extends BaseModel
         parent::__construct();
     }
 
+
+    public function createMeteorite(Request $request, array $meteorite_data)
+    {
+        $rules = [
+            "meteorite_name" => [
+                "required",
+                "alpha",
+                ["lengthMax", 32]
+            ],
+            "recclass" => [
+                "required",
+                "alphaNum",
+                ["lengthMax", 16]
+            ],
+            "mass" =>  [
+                "required",
+                "integer"
+            ],
+            "fall" => [
+                "required",
+                "alpha",
+                ["in", ["Fell", "Found"]]
+            ],
+            "year" => [
+                "required",
+                "integer"
+            ],
+            "reclat" => [
+                "required",
+                "numeric"
+            ],
+            "reclong" => [
+                "required",
+                "numeric"
+            ]
+        ];
+
+        $validator = new Validator($meteorite_data);
+        $validator->mapFieldsRules($rules);
+        if($validator->validate())
+        {
+            $this->insert("meteorite", $meteorite_data);
+        }
+        else {
+            throw new HttpBadRequestException(
+                $request,
+                $validator->errorsToString()
+            );
+        }
+    }
+    
     public function getAllMeteorites(array $filters) : array
     {
         $sql_query = "SELECT * FROM meteorite WHERE 1";

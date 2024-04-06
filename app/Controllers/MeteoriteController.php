@@ -6,6 +6,7 @@ namespace Vanier\Api\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Vanier\Api\Helpers\Validator;
 use Vanier\Api\Models\MeteoriteModel;
 
 class MeteoriteController extends BaseController
@@ -31,6 +32,29 @@ class MeteoriteController extends BaseController
         return $response;
     }
 
+    public function handleCreateMeteorites(Request $request, Response $response, array $uri_args)
+    {
+        $meteorite_parsed_body = $request->getParsedBody();
+
+        foreach($meteorite_parsed_body as $meteorite)
+        {
+            $this->meteorite_model->createMeteorite($request, $meteorite);
+        }
+
+        $response_data = [
+            "code" => "Created",
+            "message" => "The list of meteorites was created!"
+        ];
+
+        $response = $this->makeResponse(
+            $response,
+            $response_data,
+            201
+        );
+
+        return $response;
+    }
+    
     public function handleGetMeteoriteById(Request $request, Response $response, array $uri_args): Response
     {
         $supplied_meteorite_id = $uri_args["meteorite_id"];

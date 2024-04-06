@@ -3,7 +3,7 @@
 namespace Vanier\Api\Exceptions;
 use Slim\Exception\HttpSpecializedException;
 
-class HttpInvalidInputException extends HttpSpecializedException
+class HttpBadRequestException extends HttpSpecializedException
 {
       /**
      * @var int

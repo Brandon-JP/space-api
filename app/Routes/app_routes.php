@@ -74,6 +74,8 @@ $app->get("/astronauts/{astronaut_id}", [AstronautController::class, "handleGetA
 $app->get("/meteorites", [MeteoriteController::class, "handleGetAllMeteorites"]);
 //* ROUTE: GET /meteorites/{meteorite_id}
 $app->get("/meteorites/{meteorite_id}", [MeteoriteController::class, "handleGetAllMeteoriteByID"]);
+//* ROUTE: POST /meteorites
+$app->post("/meteorites", [MeteoriteController::class, "handleCreateMeteorites"]);
 
 //* ROUTE: GET /rockets
 $app->get("/rockets", [RocketController::class, "handleGetAllRockets"]);
