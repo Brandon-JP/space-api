@@ -3,6 +3,7 @@
 namespace Vanier\Api\Models;
 use Slim\Psr7\Request;
 use Vanier\Api\Exceptions\HttpBadRequestException;
+use Vanier\Api\Helpers\InputsHelper;
 use Vanier\Api\Helpers\Validator;
 
 class MeteoriteModel extends BaseModel
@@ -11,13 +12,12 @@ class MeteoriteModel extends BaseModel
         parent::__construct();
     }
 
-
-    public function createMeteorite(Request $request, array $meteorite_data)
+    private function validateCreateMeteoriteData(array $meteorite_data)
     {
         $rules = [
             "meteorite_name" => [
                 "required",
-                "alpha",
+                "alphaNum",
                 ["lengthMax", 32]
             ],
             "recclass" => [
@@ -40,28 +40,135 @@ class MeteoriteModel extends BaseModel
             ],
             "reclat" => [
                 "required",
-                "numeric"
+                ["min", -90.0],
+                ["max", 90.0]
             ],
             "reclong" => [
                 "required",
-                "numeric"
+                ["min", -180.0],
+                ["max", 180.0]
             ]
         ];
-
         $validator = new Validator($meteorite_data);
         $validator->mapFieldsRules($rules);
-        if($validator->validate())
+        return [
+            "meteorite_data_valid" => $validator->validate(),
+            "validator" => $validator
+        ];
+    }
+
+    private function validateUpdateMeteoriteData(array $meteorite_data)
+    {
+        $rules = [
+            "meteorite_id" => [
+                "required",
+                "integer"
+            ],
+            "meteorite_name" => [
+                "required",
+                "alphaNum",
+                ["lengthMax", 32]
+            ],
+            "recclass" => [
+                "required",
+                "alphaNum",
+                ["lengthMax", 16]
+            ],
+            "mass" =>  [
+                "required",
+                "integer"
+            ],
+            "fall" => [
+                "required",
+                "alpha",
+                ["in", ["Fell", "Found"]]
+            ],
+            "year" => [
+                "required",
+                "integer"
+            ],
+            "reclat" => [
+                "required",
+                "numeric",
+                ["min", -90],
+                ["max", 90]
+            ],
+            "reclong" => [
+                "required",
+                "numeric",
+                ["min", -180],
+                ["max", 180]
+            ]
+        ];
+        $validator = new Validator($meteorite_data);
+        $validator->mapFieldsRules($rules);
+        return [
+            "meteorite_data_valid" => $validator->validate(),
+            "validator" => $validator
+        ];
+    }
+
+    private function validateDeleteMeteoriteData(mixed $meteorite_id)
+    {
+        $valid_id = InputsHelper::isInt($meteorite_id, 1);
+        return $valid_id;
+    }
+
+    public function createMeteorite(Request $request, array $meteorite_data)
+    {
+        $meteorite_validate_results = $this->validateCreateMeteoriteData($meteorite_data);
+
+
+        $meteorite_data_valid = $meteorite_validate_results["meteorite_data_valid"];
+        if($meteorite_data_valid)
         {
             $this->insert("meteorite", $meteorite_data);
         }
         else {
+            $validator = $meteorite_validate_results["validator"];
             throw new HttpBadRequestException(
                 $request,
                 $validator->errorsToString()
             );
         }
     }
-    
+
+    public function updateMeteorite(Request $request, array $meteorite_data)
+    {
+        $meteorite_validate_results = $this->validateUpdateMeteoriteData($meteorite_data);
+
+        $meteorite_data_valid = $meteorite_validate_results["meteorite_data_valid"];
+        if($meteorite_data_valid)
+        {
+            $meteorite_id = $meteorite_data["meteorite_id"]; 
+            unset($meteorite_data["meteorite_id"]);
+            $this->update("meteorite", $meteorite_data, ["meteorite_id" => $meteorite_id]);
+        }
+        else {
+            $validator = $meteorite_validate_results["validator"];
+            throw new HttpBadRequestException(
+                $request,
+                $validator->errorsToString()
+            );
+        }
+    }
+
+    public function deleteMeteorite(Request $request, mixed $meteorite_id)
+    {
+        $meteorite_id_valid = $this->validateDeleteMeteoriteData($meteorite_id);
+
+        if($meteorite_id_valid)
+        {
+            $this->delete("meteorite", ["meteorite_id" => $meteorite_id]);
+        }
+        else {
+            $invalid_id_message = "The ID(s) provided are in an incorrect format!";
+            throw new HttpBadRequestException(
+                $request,
+                $invalid_id_message
+            );
+        }
+    }
     public function getAllMeteorites(array $filters) : array
     {
         $sql_query = "SELECT * FROM meteorite WHERE 1";
