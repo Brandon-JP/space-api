@@ -108,4 +108,15 @@ class MoonModel extends BaseModel
 
         return (array) $this->paginate($sql, $filter_values);
     }
+
+    public function createMoon(array $moon_data){
+        return $this->insert('moon', $moon_data);
+    }
+
+    public function updateMoon(array $moon_data, int $moon_id):mixed {
+        return $this->update('moon', $moon_data, ['moon_id' => $moon_id]);
+    }
+    public function deleteMoon(int $moon_id):mixed {
+        return $this->delete('moon',['moon_id' => $moon_id]);
+    }
 }

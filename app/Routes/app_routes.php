@@ -65,6 +65,15 @@ $app->get("/moons/{moon_id}", [MoonController::class, "handleGetMoon"]);
 //* ROUTE: GET /moons/{moon_id}/rovers
 $app->get("/moons/{moon_id}/rovers", [MoonController::class, "handleGetMoonRovers"]);
 
+//*ROUTE POST /moons
+$app->post('/moons', [MoonController::class, 'handleCreateMoons']);
+
+//* ROUTE PUT/ moons
+$app->put('/moons', [MoonController::class,'handleUpdateMoons']);
+
+//* ROUTE DELETE /moons
+$app->delete('/moons', [MoonController::class, 'handleDeleteMoons']);
+
 //* ROUTE: GET /astronauts
 $app->get("/astronauts", [AstronautController::class, "handleGetAllAstronauts"]);
 //* ROUTE: GET /astronauts/{astronaut_id}
