@@ -6,6 +6,7 @@ namespace Vanier\Api\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Vanier\Api\Helpers\Validator;
 use Vanier\Api\Models\MeteoriteModel;
 
 class MeteoriteController extends BaseController
@@ -28,6 +29,74 @@ class MeteoriteController extends BaseController
 
         $meteorites = $this->meteorite_model->getAllMeteorites($meteorites_filters);
         $response = $this->makeResponse($response, $meteorites);
+        return $response;
+    }
+
+    public function handleCreateMeteorites(Request $request, Response $response, array $uri_args)
+    {
+        $meteorite_parsed_body = $request->getParsedBody();
+
+        foreach($meteorite_parsed_body as $meteorite)
+        {
+            $this->meteorite_model->createMeteorite($request, $meteorite);
+        }
+
+        $response_data = [
+            "code" => "Created",
+            "message" => "The list of meteorites was created!"
+        ];
+
+        $response = $this->makeResponse(
+            $response,
+            $response_data,
+            201
+        );
+
+        return $response;
+    }
+    
+    public function handleUpdateMeteorites(Request $request, Response $response, array $uri_args)
+    {
+        $meteorite_parsed_body = $request->getParsedBody();
+
+        foreach($meteorite_parsed_body as $meteorite)
+        {
+            $this->meteorite_model->updateMeteorite($request, $meteorite);
+        }
+
+        $response_data = [
+            "code" => "OK",
+            "message" => "The specified meteorites were updated!"
+        ];
+
+        $response = $this->makeResponse(
+            $response,
+            $response_data,
+            200
+        );
+
+        return $response;
+    }
+
+    public function handleDeleteMeteorites(Request $request, Response $response, array $uri_args)
+    {
+        $meteorite_ids = $request->getParsedBody();
+
+        foreach($meteorite_ids as $meteorite_id)
+        {
+            $this->meteorite_model->deleteMeteorite($request, $meteorite_id);
+        }
+
+        $response_data = [
+            "code" => "OK",
+            "message" => "The specified meteorites were deleted!"
+        ];
+
+        $response = $this->makeResponse(
+            $response,
+            $response_data,
+            200
+        );
         return $response;
     }
 

@@ -6,7 +6,7 @@ namespace Vanier\Api\Models;
 
 use PDO;
 use Exception;
-use Vanier\Api\Exceptions\HttpInvalidInputException;
+use Vanier\Api\Exceptions\HttpBadRequestException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Vanier\Api\Helpers\InputsHelper;
@@ -279,11 +279,11 @@ abstract class BaseModel
         }
         else if(!$current_page_valid){
             $invalid_records_per_page_filters_message = "The current page number can only be a number equal to 1 or greater.";
-            throw new HttpInvalidInputException($request, $invalid_records_per_page_filters_message);
+            throw new HttpBadRequestException($request, $invalid_records_per_page_filters_message);
         }
         else if(!$records_per_page_valid){
             $invalid_records_per_page_filters_message = "The page size can only be a number equal to 1 or greater.";
-            throw new HttpInvalidInputException($request, $invalid_records_per_page_filters_message);
+            throw new HttpBadRequestException($request, $invalid_records_per_page_filters_message);
         }
     }
 
