@@ -4,9 +4,10 @@ namespace Vanier\Api\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Vanier\Api\Exceptions\HttpInvalidInputException;
-use Vanier\Api\Exceptions\HttpMissingParams;
+use Vanier\Api\Exceptions\HttpBadRequestException;
 use Vanier\Api\Helpers\Validator;
 use Vanier\Api\Models\MoonModel;
+use Vanier\Api\Helpers\InputsHelper;
 
 class MoonController extends BaseController
 {
@@ -57,11 +58,40 @@ class MoonController extends BaseController
     {
         $moons = $request->getParsedBody();
         $moon_model = new MoonModel();
+        $rules = [
+         'moon_name'=>[
+            "required",
+            "alphaNum",
+            ["lengthMax", 32]
+         ],
+
+         'planet_id'=>[
+            "required",
+            "integer",
+         ],
+         'radius'=>[
+            "required",
+            "numeric"
+        ],
+        'density'=>[
+            "required",
+            "numeric"
+        ],
+        'magnitude'=>[
+            "required",
+            "numeric"
+        ],
+        'albedo'=>
+        "required",
+        "numeric"
+        ];
+        
         foreach ($moons as $key=> $moon) {
-            $param_valid = new Validator($moon);
-            $param_valid->rule('required', ['moon_name','planet_id','radius','density','magnitude','albedo']);
-            if(!$param_valid->validate()) {
-                throw new HttpMissingParams($request);
+            $validator = new Validator($moon);
+
+            $validator->mapFieldsRules($rules);
+            if(!$validator->validate()) {
+                throw new HttpBadRequestException($request);
             }
             $moon_model->createMoon($moon);
         }
@@ -84,15 +114,50 @@ class MoonController extends BaseController
         
         $moons = $request->getParsedBody();
         $moon_model = new MoonModel();
+
+        $rules = [
+            'moon_id'=>[
+                "required",
+                "integer",
+                ["min", 1]
+            ],
+
+            'moon_name'=>[
+               "required",
+               "alphaNum",
+               ["lengthMax", 32]
+            ],
+   
+            'planet_id'=>[
+               "required",
+               "integer",
+            ],
+            'radius'=>[
+               "required",
+               "numeric"
+           ],
+           'density'=>[
+               "required",
+               "numeric"
+           ],
+           'magnitude'=>[
+               "required",
+               "numeric"
+           ],
+           'albedo'=>
+           "required",
+           "numeric"
+           ];
+
         foreach ($moons as $key=> $moon) {
             
 
-            $param_valid = new Validator($moon);
-            $param_valid->rule('required', ['moon_id','moon_name','planet_id','radius','density','magnitude','albedo']);
+            $validator = new Validator($moon);
+            $validator->mapFieldsRules($rules);
 
-            if(!$param_valid->validate()) {
+            if(!$validator->validate()) {
                 //var_dump($param_valid->errors());
-                throw new HttpMissingParams($request);
+                throw new HttpBadRequestException($request);
                 
             }
             $moon_id = $moon["moon_id"];
@@ -119,16 +184,22 @@ class MoonController extends BaseController
 
         $moons = $request->getParsedBody();
         $moon_model = new MoonModel();
-        foreach ($moons as  $moon_id) {
-            
-            $id_valid = new Validator($moons);
-            $id_valid->rule('numeric','moon_id');
 
-            if(!$id_valid->validate()) {
-                //var_dump($param_valid->errors());
-                throw new HttpMissingParams($request);
+       
+
+        foreach ($moons as  $moon_id) {
+
+            $validator = InputsHelper::isInt($moon_id, 1);
+         
+            if(!$validator) {
+                
+                throw new HttpBadRequestException($request);
             }
             $moon_model->deleteMoon($moon_id);
+        }
+
+        if(empty($moons)){
+            throw new HttpBadRequestException($request);
         }
 
         $response_data = array(
@@ -136,7 +207,7 @@ class MoonController extends BaseController
             "message" => "The list of moons was successfully deleted!"
 
         );
-        
+       
         return $this->makeResponse(
             $response,
             $response_data,
