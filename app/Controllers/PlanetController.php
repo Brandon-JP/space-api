@@ -25,6 +25,8 @@ class PlanetController extends BaseController
         );
         
         $planets = $this->planet_model->getAllPlanets($planets_filters);
+        $amiibos_data = $this->planet_model->getAmiibosData();
+        $planets["amiibos"] = $this->planet_model->parseAmiibos($amiibos_data);
         $response = $this->makeResponse($response, $planets);
         return $response;
     }
