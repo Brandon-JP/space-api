@@ -1,6 +1,7 @@
 <?php
 
 namespace Vanier\Api\Models;
+use Vanier\Api\Helpers\WebServiceInvoker;
 
 class PlanetModel extends BaseModel
 {
@@ -16,9 +17,41 @@ class PlanetModel extends BaseModel
         $placeholder_values = $addPlanetsFiltersResults["placeholder_values"];
 
         $sql_query = $this->addSortingClause($sql_query, "planet_name", $filters["sorting_order"] ?? "ascending");
+
+        
+        
         $planets = (array)$this->paginate($sql_query, $placeholder_values);
+
         
         return $planets;
+    }
+
+    public function getAmiibosData() 
+    {
+        $ws_invoker = new WebServiceInvoker([
+            "timeout" => 4.0
+        ]);
+        $composite_res_uri = "https://www.amiiboapi.com/api/amiibo/";
+        $amiibos_data = $ws_invoker->invokeURI($composite_res_uri);
+        return $amiibos_data;
+    }
+
+    public function parseAmiibos(mixed $amiibos_data)
+    {
+        $amiibos_array = [];
+        foreach($amiibos_data->amiibo as $key => $amiibo)
+        {
+            $amiibos_array[$key]["amiiboSeries"] = $amiibo->amiiboSeries;
+            $amiibos_array[$key]["character"] = $amiibo->character;
+            $amiibos_array[$key]["gameSeries"] = $amiibo->gameSeries;
+            $amiibos_array[$key]["head"] = $amiibo->head;
+            $amiibos_array[$key]["image"] = $amiibo->image;
+            $amiibos_array[$key]["name"] = $amiibo->name;
+            $amiibos_array[$key]["release"] = $amiibo->release;
+            $amiibos_array[$key]["tail"] = $amiibo->tail;
+            $amiibos_array[$key]["type"] = $amiibo->type;
+        }
+        return $amiibos_array;
     }
 
     public function addGetAllPlanetsFilters(string $sql_query, array $filters, array $placeholder_values = [])

@@ -25,6 +25,8 @@ class RocketController extends BaseController
         );
 
         $rockets = $this->rocket_model->getAllRockets($rocket_filters);
+        $space_stations_data = $this->rocket_model->getSpacestationsData();
+        $rockets["space_stations"] = $this->rocket_model->parseSpacestations($space_stations_data);
         $response = $this->makeResponse($response, $rockets);
         return $response;
     }

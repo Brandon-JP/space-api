@@ -1,6 +1,7 @@
 <?php
 
 namespace Vanier\Api\Models;
+use Vanier\Api\Helpers\WebServiceInvoker;
 
 class RocketModel extends BaseModel
 {
@@ -14,8 +15,38 @@ class RocketModel extends BaseModel
 
         $sql_query = $this->addSortingClause($sql_query, "rocket_name", $filters["sorting_order"] ?? "ascending");
         $rockets = (array)$this->paginate($sql_query, $placeholder_values);
-
+        
         return $rockets;
+    }
+
+    public function getSpacestationsData() : Object
+    {
+        $ws_invoker = new WebServiceInvoker([
+            "timeout" => 4.0
+        ]);
+        $composite_res_uri = "https://ll.thespacedevs.com/2.2.0/spacestation/";
+        $space_stations = $ws_invoker->invokeURI($composite_res_uri);
+        return $space_stations;
+    }
+
+
+    public function parseSpacestations(mixed $space_stations)
+    {
+        $space_stations_array = [];
+        foreach($space_stations->results as $key => $space_station)
+        {
+            $space_stations_array[$key]["id"] = $space_station->id;
+            $space_stations_array[$key]["name"] = $space_station->name;
+            $space_stations_array[$key]["status"] = $space_station->status;
+            $space_stations_array[$key]["type"] = $space_station->type;
+            $space_stations_array[$key]["founded"] = $space_station->founded;
+            $space_stations_array[$key]["deorbited"] = $space_station->deorbited;
+            $space_stations_array[$key]["description"] = $space_station->description;
+            $space_stations_array[$key]["orbit"] = $space_station->orbit;
+            $space_stations_array[$key]["owners"] = $space_station->owners;
+            $space_stations_array[$key]["image_url"] = $space_station->image_url;
+        }
+        return $space_stations_array;
     }
 
     public function addRocketFilters(string $sql_query, array $filters, array $placeholder_values = []): array
