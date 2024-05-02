@@ -85,7 +85,10 @@ class MoonController extends BaseController
         "required",
         "numeric"
         ];
-        
+        if(empty($moon)){
+            throw new HttpBadRequestException($request);
+        }
+
         foreach ($moons as $key=> $moon) {
             $validator = new Validator($moon);
 
