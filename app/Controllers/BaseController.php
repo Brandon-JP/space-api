@@ -10,7 +10,7 @@ use Vanier\Api\Helpers\InputsHelper;
 
 abstract class BaseController
 {
-    protected function makeResponse(Response $response, array $data, int $status_code = 200): Response
+    protected function makeResponse(Response $response, array $data, int $status_code= 200): Response
     {
         // var_dump($data);
         $json_data = json_encode($data);
@@ -28,6 +28,8 @@ abstract class BaseController
             throw new HttpBadRequestException($request, $invalid_id_exception_message);
         }
     }
+
+    
 
 
 }

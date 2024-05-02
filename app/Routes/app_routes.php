@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use Vanier\Api\Controllers\AboutController;
+use Vanier\Api\Controllers\AccountsController;
 use Vanier\Api\Controllers\AstronautController;
 use Vanier\Api\Controllers\MissionController;
 use Vanier\Api\Controllers\MoonController;
@@ -95,3 +96,9 @@ $app->get("/rockets", [RocketController::class, "handleGetAllRockets"]);
 $app->get("/rockets/{rocket_id}", [RocketController::class, "handleGetRocketById"]);
 //* ROUTE: GET /rockets/{rocket_id}/missions
 $app->get("/rockets/{rocket_id}/missions", [RocketController::class, "handleGetRocketByIdMission"]);
+
+//* ROUTE: POST /account
+$app->post("/account", [AccountsController::class, "handleCreateAccount"]);
+
+//* ROUTE: POST /token
+$app->post("/token", [AccountsController::class, "handleGenerateToken"]);
