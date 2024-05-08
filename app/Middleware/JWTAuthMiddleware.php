@@ -42,7 +42,10 @@ class JWTAuthMiddleware implements MiddlewareInterface
         //echo $token;
         //-- 4) Try to decode the JWT token
         //@see https://github.com/firebase/php-jwt#exception-handling
-       
+       if(empty($token)){
+            throw new UnexpectedValueException();
+       }
+
         try {
             $jwt = JWTManager::decodeJWT($token,JWTManager::SIGNATURE_ALGO);
         } catch (LogicException $e) {

@@ -82,10 +82,12 @@ class MoonController extends BaseController
             "numeric"
         ],
         'albedo'=>
-        "required",
-        "numeric"
+        ["required",
+        "numeric"]
         ];
-        if(empty($moon)){
+        var_dump($moons);
+        if(empty($moons)){
+            
             throw new HttpBadRequestException($request);
         }
 
@@ -151,7 +153,7 @@ class MoonController extends BaseController
            "required",
            "numeric"
            ];
-
+        var_dump($moons);
         foreach ($moons as $key=> $moon) {
             
 
