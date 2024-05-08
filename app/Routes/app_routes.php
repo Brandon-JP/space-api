@@ -8,6 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Vanier\Api\Controllers\AboutController;
 use Vanier\Api\Controllers\AccountsController;
 use Vanier\Api\Controllers\AstronautController;
+use Vanier\Api\Controllers\BmiController;
 use Vanier\Api\Controllers\MissionController;
 use Vanier\Api\Controllers\MoonController;
 use Vanier\Api\Controllers\PlanetController;
@@ -102,3 +103,6 @@ $app->post("/account", [AccountsController::class, "handleCreateAccount"]);
 
 //* ROUTE: POST /token
 $app->post("/token", [AccountsController::class, "handleGenerateToken"]);
+
+//* ROUTE: POST /bmi
+$app->post("/bmi", [BmiController::class, "handleCalculateBmi"]);
