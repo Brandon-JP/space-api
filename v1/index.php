@@ -25,15 +25,15 @@ $app = AppFactory::create();
 //TODO: Add the middleware here.
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
-//$app->add(new ContentNegotiationMiddleware());
-//$app->add(new JWTAuthMiddleware());
+$app->add(new ContentNegotiationMiddleware());
+$app->add(new JWTAuthMiddleware());
 //!NOTE: the error handling middleware MUST be added last.
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 $errorMiddleware->getDefaultErrorHandler()->forceContentType(APP_MEDIA_TYPE_JSON);
 
 //TODO: change the name of the subdirectory here.
 // You also need to change it in .htaccess
-$app->setBasePath("/v1/space-api");
+$app->setBasePath("/space-api/v1");
 
 // Include the file that contains the application routes. 
 //* NOTE: your routes must be managed in the api_routes.php file.
