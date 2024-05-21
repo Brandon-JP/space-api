@@ -29,7 +29,7 @@ class PlanetModel extends BaseModel
     public function getAmiibosData() 
     {
         $ws_invoker = new WebServiceInvoker([
-            "timeout" => 4.0
+            "timeout" => 20.0
         ]);
         $composite_res_uri = "https://www.amiiboapi.com/api/amiibo/";
         $amiibos_data = $ws_invoker->invokeURI($composite_res_uri);
