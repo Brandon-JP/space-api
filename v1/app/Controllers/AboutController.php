@@ -14,16 +14,17 @@ class AboutController extends BaseController
         $data = array(
             'About' => [
                 'Authors' => 'This API was created by Logan Luo and Brandon Pannunzio',
-                'Description' => 'This api shows space information'
+                'Description' => 'This api provides a service which offers space information,N this service supports GET,PUT,POST and DELETE',
+                'Version' => '1.0.0'
             ],
             'Resources' => [
-                'rockets' => 'space-api/v1/rockets',
-                'moons' => 'space-api/v1/moons',
-                'planets' => 'space-api/v1/planets',
-                'meteorites' => 'space-api/v1/meteorites',
-                'rovers' => 'space-api/v1/rovers',
-                'missions' => 'space-api/v1/missions',
-                'astronauts' => 'space-api/v1/astronauts',
+                'rockets' => 'space-api/rockets',
+                'moons' => 'space-api/moons',
+                'planets' => 'space-api/planets',
+                'meteorites' => 'space-api/meteorites',
+                'rovers' => 'space-api/rovers',
+                'missions' => 'space-api/missions',
+                'astronauts' => 'space-api/astronauts',
 
             ]
         );
